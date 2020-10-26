@@ -21,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Clip {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue
   @Column(name = "clip_id", nullable = false, updatable = false)
   private Long id;
 
@@ -55,7 +55,6 @@ public class Clip {
   public Long getId() {
     return id;
   }
-
 
   public String getSongTitle() {
     return songTitle;
