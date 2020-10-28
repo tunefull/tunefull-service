@@ -14,26 +14,35 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-@Table(indexes = {@Index(columnList = "dateTimePosted")})
+@Table(
+    indexes = {@Index(columnList = "dateTimePosted")}
+)
 public class Clip {
 
+  // Added NonNull annotation to multiple fields; regenerated getters/setters to reflect changes.
+
+  // Specified GenerationType
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "clip_id", nullable = false, updatable = false)
   private Long id;
 
+  @NonNull
   @Column(nullable = false, updatable = false)
   private String songTitle;
 
+  @NonNull
   @Column(nullable = false, updatable = false)
   private String artist;
 
   @Column(nullable = true, updatable = false)
   private String album;
 
+  @NonNull
   @Column(nullable = false, updatable = false)
   private String trackKey;
 
@@ -43,11 +52,13 @@ public class Clip {
   @Column(updatable = false)
   private int endTimestamp;
 
+  @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date dateTimePosted;
 
+  @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
@@ -56,19 +67,21 @@ public class Clip {
     return id;
   }
 
+  @NonNull
   public String getSongTitle() {
     return songTitle;
   }
 
-  public void setSongTitle(String songTitle) {
+  public void setSongTitle(@NonNull String songTitle) {
     this.songTitle = songTitle;
   }
 
+  @NonNull
   public String getArtist() {
     return artist;
   }
 
-  public void setArtist(String artist) {
+  public void setArtist(@NonNull String artist) {
     this.artist = artist;
   }
 
@@ -80,11 +93,12 @@ public class Clip {
     this.album = album;
   }
 
+  @NonNull
   public String getTrackKey() {
     return trackKey;
   }
 
-  public void setTrackKey(String trackKey) {
+  public void setTrackKey(@NonNull String trackKey) {
     this.trackKey = trackKey;
   }
 
@@ -104,15 +118,17 @@ public class Clip {
     this.endTimestamp = endTimestamp;
   }
 
+  @NonNull
   public Date getDateTimePosted() {
     return dateTimePosted;
   }
 
+  @NonNull
   public User getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(@NonNull User user) {
     this.user = user;
   }
 }
