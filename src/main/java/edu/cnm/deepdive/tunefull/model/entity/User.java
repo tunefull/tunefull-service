@@ -1,7 +1,9 @@
 package edu.cnm.deepdive.tunefull.model.entity;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.persistence.CascadeType;
@@ -17,11 +19,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.springframework.lang.NonNull;
+import org.springframework.util.comparator.Comparators;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "user_profile")
-public class User {
+public class User implements Comparable<User> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -115,20 +118,28 @@ public class User {
     return clips;
   }
 
-  // Returns an unsorted list (sort will be needed later to get alphabetical order)
   @NonNull
   public List<Relationship> getFriendships() {
     return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
+        .filter(Relationship::isFriendRelationship)
         .filter(Relationship::getFriendAccepted)
+        .sorted(Comparator.comparing((Relationship relationship) -> relationship.other(this).username))
         .collect(Collectors.toList());
   }
 
   @NonNull
   public List<Relationship> getFollowing() {
     return relationshipsInitiated.stream()
-        .filter(relationship -> (!relationship.isFriendRelationship()
-            || (relationship.getFriendAccepted() != null || !relationship.getFriendAccepted())))
+        .filter(Predicate.not(Relationship::isFriendRelationship)
+            .or((relationship) -> relationship.getFriendAccepted() == null)
+            .or((relationship) -> relationship.getFriendAccepted().equals(false)))
+        .sorted(Comparator.comparing((relationship) -> relationship.getRequested().username))
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public int compareTo(User other) {
+    return username.compareToIgnoreCase(other.username);
   }
 
   public enum Genre {

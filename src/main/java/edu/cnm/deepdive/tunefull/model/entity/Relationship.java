@@ -76,4 +76,8 @@ public class Relationship {
   public void setFriendAccepted(Boolean friendAccepted) {
     this.friendAccepted = friendAccepted;
   }
+
+  public User other(User self) {
+    return (self.getId().equals(requester.getId())) ? requested : requester;
+  }
 }
