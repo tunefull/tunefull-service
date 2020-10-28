@@ -17,12 +17,9 @@ import org.springframework.lang.NonNull;
     uniqueConstraints = {
         @UniqueConstraint(columnNames = {"requester_id", "requested_id"})
     }
-) // Inserted uniqueConstraints for the compound unique key ^^^.
+)
 public class Relationship {
 
-  // Added NonNull annotation to multiple fields.
-
-  // Specified GenerationType
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "relationship_id", nullable = false, updatable = false)
@@ -38,10 +35,8 @@ public class Relationship {
   @JoinColumn(name = "requested_id", nullable = false, updatable = false)
   private User requested;
 
-  // Removed unnecessary Column annotation
   private boolean friendRelationship;
 
-  // Removed unnecessary Column annotation
   private Boolean friendAccepted;
 
   public Long getId() {

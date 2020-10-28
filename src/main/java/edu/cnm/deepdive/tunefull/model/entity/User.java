@@ -23,9 +23,6 @@ import org.springframework.lang.NonNull;
 @Table(name = "user_profile")
 public class User {
 
-  // Added NonNull annotation to multiple fields; regenerated getters/setters to reflect changes.
-
-  // Specified GenerationType
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "user_id", nullable = false, updatable = false)
@@ -39,7 +36,6 @@ public class User {
   @Column(nullable = false)
   private String email;
 
-  // Added NonNull and Enumerated annotations
   @NonNull
   @Column(name = "favorite_genre", nullable = false)
   @Enumerated(value = EnumType.STRING)
@@ -49,19 +45,16 @@ public class User {
   @Column(nullable = false, updatable = false, unique = true)
   private String oauth;
 
-  // Changed FetchType to LAZY
   @NonNull
   @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requested ASC")
   private final List<Relationship> relationshipsInitiated = new LinkedList<>();
 
-  // Added new field (for relationships where this user is "user 2" - the recipient of the request
   @NonNull
   @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requester ASC")
   private final List<Relationship> relationshipsReceived = new LinkedList<>();
 
-  // Changed FetchType to LAZY
   @NonNull
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("dateTimePosted DESC")
@@ -112,31 +105,30 @@ public class User {
     return relationshipsInitiated;
   }
 
-  // Added getter for new field
   @NonNull
   public List<Relationship> getRelationshipsReceived() {
     return relationshipsReceived;
   }
 
-  // Added method to return all friend relationships
   @NonNull
-  public List<Relationship> friendships() {
+  public List<Clip> getClips() {
+    return clips;
+  }
+
+  // Returns an unsorted list (sort will be needed later to get alphabetical order)
+  @NonNull
+  public List<Relationship> getFriendships() {
     return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
         .filter(Relationship::getFriendAccepted)
         .collect(Collectors.toList());
   }
 
-  // Added method to return all follow relationships (I think????)
   @NonNull
-  public List<Relationship> following() {
+  public List<Relationship> getFollowing() {
     return relationshipsInitiated.stream()
-        .filter(relationship -> (!relationship.getFriendAccepted() || !relationship.isFriendRelationship()))
+        .filter(relationship -> (!relationship.isFriendRelationship()
+            || (relationship.getFriendAccepted() != null || !relationship.getFriendAccepted())))
         .collect(Collectors.toList());
-  }
-
-  @NonNull
-  public List<Clip> getClips() {
-    return clips;
   }
 
   public enum Genre {

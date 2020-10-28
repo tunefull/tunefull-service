@@ -23,9 +23,6 @@ import org.springframework.lang.NonNull;
 )
 public class Clip {
 
-  // Added NonNull annotation to multiple fields; regenerated getters/setters to reflect changes.
-
-  // Specified GenerationType
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "clip_id", nullable = false, updatable = false)
@@ -39,7 +36,7 @@ public class Clip {
   @Column(nullable = false, updatable = false)
   private String artist;
 
-  @Column(nullable = true, updatable = false)
+  @Column(updatable = false)
   private String album;
 
   @NonNull
