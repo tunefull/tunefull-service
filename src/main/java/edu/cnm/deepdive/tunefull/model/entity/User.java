@@ -38,8 +38,8 @@ public class User {
 
   // How to use mappedBy with user1 and user2?
   @NonNull
-  @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("user2 ASC")
+  @OneToMany(mappedBy = "requested", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy("requested ASC")
   private final List<Relationship> relationships = new LinkedList<>();
 
   @NonNull
