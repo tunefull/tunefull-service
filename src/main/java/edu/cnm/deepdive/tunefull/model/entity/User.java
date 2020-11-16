@@ -22,23 +22,21 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.comparator.Comparators;
 
 /**
- * User entity holds data model for User data and functions on Tunefull application
+ * User entity holds the data model for User data and functions in the TuneFull server.
  *
  * @Author Roderick Frechette
  * @Author Laura Steiner
  * @Author Robert Dominguez
- *
  * @Version 1.0
  * @Since 1.0
  */
-
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "user_profile")
 public class User implements Comparable<User> {
 
   /**
-   * Holds id value
+   * Holds an auto-generated id value.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,28 +44,28 @@ public class User implements Comparable<User> {
   private Long id;
 
   /**
-   * Holds username value
+   * Holds the user's username.
    */
   @NonNull
   @Column(nullable = false, unique = true)
   private String username;
 
   /**
-   * Holds email value
+   * Holds the user's email.
    */
   @NonNull
   @Column(nullable = false)
   private String email;
 
   /**
-   * Holds genre value
+   * Holds the user's favorite genre.
    */
   @Column(name = "favorite_genre")
   @Enumerated(value = EnumType.STRING)
   private Genre genre;
 
   /**
-   * Holds oauth value
+   * Holds the oauth value.
    */
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
@@ -157,7 +155,8 @@ public class User implements Comparable<User> {
     return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
         .filter(Relationship::isFriendRelationship)
         .filter(Relationship::getFriendAccepted)
-        .sorted(Comparator.comparing((Relationship relationship) -> relationship.other(this).username))
+        .sorted(
+            Comparator.comparing((Relationship relationship) -> relationship.other(this).username))
         .collect(Collectors.toList());
   }
 

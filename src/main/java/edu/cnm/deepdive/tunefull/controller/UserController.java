@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,9 +43,10 @@ public class UserController {
   }
 
   // /users: gets all users, up to a specified number (or default all)
-  //how to do query params??
-  @GetMapping(params = {}, produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<User> getAll(Authentication auth) {
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public List<User> getAll(Authentication auth,
+      @RequestParam(required = false, defaultValue = "40") int limit,
+      @RequestParam(required = false, defaultValue = "0") int offset) {
     return userService.getAll();
   }
 
