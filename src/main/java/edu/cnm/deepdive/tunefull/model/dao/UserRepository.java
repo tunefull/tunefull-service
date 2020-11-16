@@ -20,12 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 /**
  *  Gets a single user based on the oauth key
  * */
-  Optional<User> getUserByOauth(String oauth);
+  Optional<User> findFirstByOauth(String oauth);
 
 /**
  *  Gets all users in the system, ordered by username
  *
  * */
-  Optional<List<User>> getUsersByOauthExistsOrderByUsername();
+  List<User> getAllByOrderByUsername();
 
 }
