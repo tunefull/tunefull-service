@@ -62,8 +62,7 @@ public class User implements Comparable<User> {
   /**
    * Holds genre value
    */
-  @NonNull
-  @Column(name = "favorite_genre", nullable = false)
+  @Column(name = "favorite_genre")
   @Enumerated(value = EnumType.STRING)
   private Genre genre;
 

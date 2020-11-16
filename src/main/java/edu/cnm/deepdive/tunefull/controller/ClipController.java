@@ -2,6 +2,7 @@ package edu.cnm.deepdive.tunefull.controller;
 
 import edu.cnm.deepdive.tunefull.model.entity.Clip;
 import edu.cnm.deepdive.tunefull.service.ClipService;
+import edu.cnm.deepdive.tunefull.service.ClipService.Source;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -10,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,9 +34,11 @@ public class ClipController {
   }
 
   // /clips: returns all of the most recent clips for use in Discovery
-  // again needs query params: number and index
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Clip> getAll(Authentication auth) {
+  public List<Clip> getAll(Authentication auth,
+      @RequestParam(required = false, defaultValue = "10") int limit,
+      @RequestParam(required = false, defaultValue = "0") int offset,
+      @RequestParam(required = false, defaultValue = "ALL") Source source) {
     return null;
   }
 
