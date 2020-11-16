@@ -21,43 +21,78 @@ import javax.persistence.Table;
 import org.springframework.lang.NonNull;
 import org.springframework.util.comparator.Comparators;
 
+/**
+ * User entity holds data model for User data and functions on Tunefull application
+ *
+ * @Author Roderick Frechette
+ * @Author Laura Steiner
+ * @Author Robert Dominguez
+ *
+ * @Version 1.0
+ * @Since 1.0
+ */
+
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "user_profile")
 public class User implements Comparable<User> {
 
+  /**
+   * Holds id value
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "user_id", nullable = false, updatable = false)
   private Long id;
 
+  /**
+   * Holds username value
+   */
   @NonNull
   @Column(nullable = false, unique = true)
   private String username;
 
+  /**
+   * Holds email value
+   */
   @NonNull
   @Column(nullable = false)
   private String email;
 
+  /**
+   * Holds genre value
+   */
   @NonNull
   @Column(name = "favorite_genre", nullable = false)
   @Enumerated(value = EnumType.STRING)
   private Genre genre;
 
+  /**
+   * Holds oauth value
+   */
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String oauth;
 
+  /**
+   * Holds relationshipsInitiated value
+   */
   @NonNull
   @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requested ASC")
   private final List<Relationship> relationshipsInitiated = new LinkedList<>();
 
+  /**
+   * Holds relationshipsReceived Value
+   */
   @NonNull
   @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requester ASC")
   private final List<Relationship> relationshipsReceived = new LinkedList<>();
 
+  /**
+   * Holds clips value
+   */
   @NonNull
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("dateTimePosted DESC")

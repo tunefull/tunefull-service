@@ -11,6 +11,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.springframework.lang.NonNull;
 
+/**
+ * Relationship entity holds data model for types of relationships on Tunefull application
+ *
+ * @Author Roderick Frechette
+ * @Author Laura Steiner
+ * @Author Robert Dominguez
+ *
+ * @Version 1.0
+ * @Since 1.0
+ */
+
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -20,23 +31,38 @@ import org.springframework.lang.NonNull;
 )
 public class Relationship {
 
+  /**
+   * Holds value for id
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "relationship_id", nullable = false, updatable = false)
   private Long id;
 
+  /**
+   * Holds requester value
+   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "requester_id", nullable = false, updatable = false)
   private User requester;
 
+  /**
+   * Holds requested value
+   */
   @NonNull
   @ManyToOne
   @JoinColumn(name = "requested_id", nullable = false, updatable = false)
   private User requested;
 
+  /**
+   * Holds friendRelationship value
+   */
   private boolean friendRelationship;
 
+  /**
+   * holds friendAccepted value
+   */
   private Boolean friendAccepted;
 
   public Long getId() {

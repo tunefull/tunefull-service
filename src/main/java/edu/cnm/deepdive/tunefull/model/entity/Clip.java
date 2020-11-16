@@ -16,6 +16,17 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+
+/**
+ * Clip entity holds data model for clips of music on Tunefull application
+ *
+ * @Author Roderick Frechette
+ * @Author Laura Steiner
+ * @Author Robert Dominguez
+ *
+ * @Version 1.0
+ * @Since 1.0
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(
@@ -23,38 +34,65 @@ import org.springframework.lang.NonNull;
 )
 public class Clip {
 
+  /**
+   * Holds Id value
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "clip_id", nullable = false, updatable = false)
   private Long id;
 
+  /**
+   * Holds songTitle value
+   */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String songTitle;
 
+  /**
+   * Holds artist value
+   */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String artist;
 
+  /**
+   * Holds album value
+   */
   @Column(updatable = false)
   private String album;
 
+  /**
+   * Holds trackKey value
+   */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String trackKey;
 
+  /**
+   * Holds beginTimestamp value
+   */
   @Column(updatable = false)
   private int beginTimestamp;
 
+  /**
+   * Holds endTimestamp value
+   */
   @Column(updatable = false)
   private int endTimestamp;
 
+  /**
+   * Holds dateTimePosted value
+   */
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date dateTimePosted;
 
+  /**
+   * Holds user value
+   */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
