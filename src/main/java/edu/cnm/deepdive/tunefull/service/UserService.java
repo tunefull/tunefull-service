@@ -63,4 +63,8 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
     return userRepository.save(user).getGenre();
   }
 
+  public void delete(User user) {
+    userRepository.delete(user);
+  }
+
 }
