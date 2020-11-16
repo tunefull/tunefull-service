@@ -117,12 +117,11 @@ public class User implements Comparable<User> {
     this.email = email;
   }
 
-  @NonNull
   public Genre getGenre() {
     return genre;
   }
 
-  public void setGenre(@NonNull Genre genre) {
+  public void setGenre(Genre genre) {
     this.genre = genre;
   }
 
