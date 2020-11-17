@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.tunefull.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,6 +78,7 @@ public class User implements Comparable<User> {
   @NonNull
   @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requested ASC")
+  @JsonIgnore //for now
   private final List<Relationship> relationshipsInitiated = new LinkedList<>();
 
   /**
@@ -85,6 +87,7 @@ public class User implements Comparable<User> {
   @NonNull
   @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("requester ASC")
+  @JsonIgnore //for now
   private final List<Relationship> relationshipsReceived = new LinkedList<>();
 
   /**
@@ -93,6 +96,7 @@ public class User implements Comparable<User> {
   @NonNull
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("dateTimePosted DESC")
+  @JsonIgnore //for now
   private final List<Clip> clips = new LinkedList<>();
 
   public Long getId() {
@@ -150,6 +154,7 @@ public class User implements Comparable<User> {
   }
 
   @NonNull
+  @JsonIgnore //for now
   public List<Relationship> getFriendships() {
     return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
         .filter(Relationship::isFriendRelationship)
@@ -160,6 +165,7 @@ public class User implements Comparable<User> {
   }
 
   @NonNull
+  @JsonIgnore //for now
   public List<Relationship> getFollowing() {
     return relationshipsInitiated.stream()
         .filter(Predicate.not(Relationship::isFriendRelationship)
