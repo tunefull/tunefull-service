@@ -38,7 +38,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   are friends or follows?
   Gets all clips for a particular user, ordered by most recent-less recent
  */
-  List<Clip> getAllByUserAndLimitAndOffset(User user);
+//  List<Clip> getAllByUserAndLimitAndOffset(User user);
 
   @Query(value = "SELECT * FROM Clip WHERE user_id = :userId ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
