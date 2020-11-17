@@ -2,6 +2,8 @@ package edu.cnm.deepdive.tunefull;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 
 /**
  * Initialization of springboot server for Tunefull application
@@ -13,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Version 1.0
  * @Since 1.0
  */
+@EnableHypermediaSupport(type = {HypermediaType.HAL})
 @SpringBootApplication
 public class TunefullApplication {
 
