@@ -27,7 +27,7 @@ import org.springframework.util.comparator.Comparators;
  * The {@code User} entity holds the data for each user in the TuneFull server and provides methods
  * to access lists of data.
  * </p>
- * <p>
+ *
  * As well as fields of data, and methods to access that data, the {@code User} entity contains the
  * nested enum {@link Genre}, which enumerates a basic list of favorite musical genres for the user
  * to select from.
@@ -35,6 +35,7 @@ import org.springframework.util.comparator.Comparators;
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
+ *
  * @version 1.0
  * @since 1.0
  */

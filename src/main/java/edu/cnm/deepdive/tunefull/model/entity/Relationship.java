@@ -12,7 +12,10 @@ import javax.persistence.UniqueConstraint;
 import org.springframework.lang.NonNull;
 
 /**
- * Relationship entity holds data model for types of relationships on Tunefull application
+ * <p>
+ * The {@code Relationship} entity holds the data for each user-to-user relationship in the TuneFull
+ * server and provides a method to facilitate getting the other user in the relationship.
+ * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
@@ -32,7 +35,7 @@ import org.springframework.lang.NonNull;
 public class Relationship {
 
   /**
-   * Holds value for id
+   * Holds an auto-generated id value for identification of the relationship in the TuneFull database.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +43,7 @@ public class Relationship {
   private Long id;
 
   /**
-   * Holds requester value
+   * References the {@link User} entity associated with the user who requested the relationship.
    */
   @NonNull
   @ManyToOne
@@ -48,7 +51,7 @@ public class Relationship {
   private User requester;
 
   /**
-   * Holds requested value
+   * References the {@link User} entity associated with the user who received a relationship request.
    */
   @NonNull
   @ManyToOne
@@ -56,26 +59,31 @@ public class Relationship {
   private User requested;
 
   /**
-   * Holds friendRelationship value
+   * If friendRelationship is true, the two users are friends. If it is false, the {@code requester}
+   * is simply following the {@code requested}.
    */
   private boolean friendRelationship;
 
   /**
-   * holds friendAccepted value
+   * If friendAccepted is null, the user who received the request either has not yet accepted/denied
+   * the friend request or the relationship is just a follow relationship. True and false values
+   * correspond to accepted and denied requests respectively.
    */
   private Boolean friendAccepted;
 
   /**
+   * Returns the id for the relationship.
    *
-   * @return id
+   * @return
    */
   public Long getId() {
     return id;
   }
 
   /**
+   * Returns the {@link User} entity associated with the user who requested the relationship.
    *
-   * @return requester
+   * @return
    */
   @NonNull
   public User getRequester() {
@@ -83,16 +91,18 @@ public class Relationship {
   }
 
   /**
+   * Sets the {@link User} entity associated with the user who requested the relationship.
    *
-   * @param requester- User type
+   * @param requester - {@link User}
    */
   public void setRequester(@NonNull User requester) {
     this.requester = requester;
   }
 
   /**
+   * Returns the {@link User} entity associated with the user who received the relationship request.
    *
-   * @return requested
+   * @return
    */
   @NonNull
   public User getRequested() {
@@ -100,49 +110,59 @@ public class Relationship {
   }
 
   /**
+   * Sets the {@link User} entity associated with the user who received the relationship request.
    *
-   * @param requested- User type
+   * @param requested - {@link User}
    */
   public void setRequested(@NonNull User requested) {
     this.requested = requested;
   }
 
   /**
+   * Returns a boolean indicating whether the relationship is a friendship or simply a follow
+   * relationship.
    *
-   * @return friendRelationship
+   * @return
    */
   public boolean isFriendRelationship() {
     return friendRelationship;
   }
 
   /**
+   * Sets the boolean indicating whether the relationship is a friendship or simply a follow
+   * relationship.
    *
-   * @param friendRelationship- boolean type
+   * @param friendRelationship - boolean
    */
   public void setFriendRelationship(boolean friendRelationship) {
     this.friendRelationship = friendRelationship;
   }
 
   /**
+   * Returns the Boolean indicating whether a friend relationship has been accepted, denied, or not
+   * yet responded to.
    *
-   * @return friendAccepted
+   * @return
    */
   public Boolean getFriendAccepted() {
     return friendAccepted;
   }
 
   /**
-   *
-   * @param friendAccepted- Boolean type
+   * Sets the Boolean indicating whether a friend relationship has been accepted, denied, or not yet
+   * responded to.
+   * @param friendAccepted - Boolean
    */
   public void setFriendAccepted(Boolean friendAccepted) {
     this.friendAccepted = friendAccepted;
   }
 
   /**
+   * Returns the user on the other side of the relationship from the current user: the requested if
+   * the current user is the requester, and the requester if the current user is the requested.
    *
-   * @param self- User type
-   * @return the user in relationship that is not current user
+   * @param self - {@link User}
+   * @return the user in the relationship that is not the current user
    */
   public User other(User self) {
     return (self.getId().equals(requester.getId())) ? requested : requester;
