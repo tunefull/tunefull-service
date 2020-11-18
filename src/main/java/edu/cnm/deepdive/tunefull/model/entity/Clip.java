@@ -20,12 +20,12 @@ import org.springframework.lang.NonNull;
 /**
  * Clip entity holds data model for clips of music on Tunefull application
  *
- * @Author Roderick Frechette
- * @Author Laura Steiner
- * @Author Robert Dominguez
+ * @author Robert Dominguez
+ * @author Roderick Frechette
+ * @author Laura Steiner
  *
- * @Version 1.0
- * @Since 1.0
+ * @version 1.0
+ * @since 1.0
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -98,6 +98,10 @@ public class Clip {
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
 
+  /**
+   *
+   * @return return id
+   */
   public Long getId() {
     return id;
   }

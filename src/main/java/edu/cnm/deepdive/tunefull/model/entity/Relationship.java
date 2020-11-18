@@ -14,12 +14,12 @@ import org.springframework.lang.NonNull;
 /**
  * Relationship entity holds data model for types of relationships on Tunefull application
  *
- * @Author Roderick Frechette
- * @Author Laura Steiner
- * @Author Robert Dominguez
+ * @author Robert Dominguez
+ * @author Roderick Frechette
+ * @author Laura Steiner
  *
- * @Version 1.0
- * @Since 1.0
+ * @version 1.0
+ * @since 1.0
  */
 
 @SuppressWarnings("JpaDataSourceORMInspection")

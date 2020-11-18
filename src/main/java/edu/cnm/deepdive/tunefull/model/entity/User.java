@@ -25,11 +25,12 @@ import org.springframework.util.comparator.Comparators;
 /**
  * User entity holds the data model for User data and functions in the TuneFull server.
  *
- * @Author Roderick Frechette
- * @Author Laura Steiner
- * @Author Robert Dominguez
- * @Version 1.0
- * @Since 1.0
+ * @author Robert Dominugez
+ * @author Roderick Frechette
+ * @author Laura Steiner
+ *
+ * @version 1.0
+ * @since 1.0
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -107,6 +108,7 @@ public class User implements Comparable<User> {
   public String getUsername() {
     return username;
   }
+
 
   public void setUsername(@NonNull String username) {
     this.username = username;
