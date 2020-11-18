@@ -23,12 +23,18 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.comparator.Comparators;
 
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * <p>
+ * The {@code User} entity holds the data for each user in the TuneFull server and provides methods
+ * to access lists of data.
+ * </p>
+ * <p>
+ * As well as fields of data, and methods to access that data, the {@code User} entity contains the
+ * nested enum {@link Genre}, which enumerates a basic list of favorite musical genres for the user
+ * to select from.
  *
- * @author Robert Dominugez
+ * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -38,7 +44,7 @@ import org.springframework.util.comparator.Comparators;
 public class User implements Comparable<User> {
 
   /**
-   * Holds an auto-generated id value.
+   * Holds an auto-generated id value for identification of the user in the TuneFull database.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,35 +52,35 @@ public class User implements Comparable<User> {
   private Long id;
 
   /**
-   * Holds the user's username.
+   * Holds the user's username. Each username must be unique.
    */
   @NonNull
   @Column(nullable = false, unique = true)
   private String username;
 
   /**
-   * Holds the user's email.
+   * Holds the user's email address.
    */
   @NonNull
   @Column(nullable = false)
   private String email;
 
   /**
-   * Holds the user's favorite genre.
+   * Holds the user's favorite genre, specified as an enumerated type from the {@link Genre} enum.
    */
   @Column(name = "favorite_genre")
   @Enumerated(value = EnumType.STRING)
   private Genre genre;
 
   /**
-   * Holds the oauth value.
+   * Holds the OAuth 2.0 key.
    */
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String oauth;
 
   /**
-   * Holds relationshipsInitiated value
+   * Holds the list of relationships that the user has initiated.
    */
   @NonNull
   @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -83,7 +89,7 @@ public class User implements Comparable<User> {
   private final List<Relationship> relationshipsInitiated = new LinkedList<>();
 
   /**
-   * Holds relationshipsReceived Value
+   * Holds the list of relationships that the user has received requests for.
    */
   @NonNull
   @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -92,7 +98,7 @@ public class User implements Comparable<User> {
   private final List<Relationship> relationshipsReceived = new LinkedList<>();
 
   /**
-   * Holds clips value
+   * Holds the list of clips posted by the user.
    */
   @NonNull
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -101,16 +107,18 @@ public class User implements Comparable<User> {
   private final List<Clip> clips = new LinkedList<>();
 
   /**
+   * Returns the id for the user.
    *
-   * @return id
+   * @return
    */
   public Long getId() {
     return id;
   }
 
   /**
+   * Returns the user's username.
    *
-   * @return username
+   * @return
    */
   @NonNull
   public String getUsername() {
@@ -118,16 +126,18 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Sets the user's username.
    *
-   * @param username- String type
+   * @param username - String
    */
   public void setUsername(@NonNull String username) {
     this.username = username;
   }
 
   /**
+   * Returns the user's email address.
    *
-   * @return email
+   * @return
    */
   @NonNull
   public String getEmail() {
@@ -135,32 +145,36 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Sets the user's email address.
    *
-   * @param email- String type
+   * @param email - String
    */
   public void setEmail(@NonNull String email) {
     this.email = email;
   }
 
   /**
+   * Returns the user's favorite genre as an enumerated type from the {@link Genre} enum.
    *
-   * @return genre
+   * @return
    */
   public Genre getGenre() {
     return genre;
   }
 
   /**
+   * Sets the user's favorite genre.
    *
-   * @param genre- enum type
+   * @param genre - an enumerated value from {@link Genre}
    */
   public void setGenre(Genre genre) {
     this.genre = genre;
   }
 
   /**
+   * Returns the user's OAuth 2.0 key.
    *
-   * @return oauth
+   * @return
    */
   @NonNull
   public String getOauth() {
@@ -168,16 +182,18 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Sets the user's OAuth 2.0 key.
    *
-   * @param oauth- String type
+   * @param oauth- String
    */
   public void setOauth(@NonNull String oauth) {
     this.oauth = oauth;
   }
 
   /**
+   * Returns the list of relationships that the user has initiated.
    *
-   * @return relationshipsInitiated
+   * @return
    */
   @NonNull
   public List<Relationship> getRelationshipsInitiated() {
@@ -185,8 +201,9 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Returns the list of relationships that the user has received requests for.
    *
-   * @return relationshipsReceived
+   * @return
    */
   @NonNull
   public List<Relationship> getRelationshipsReceived() {
@@ -194,8 +211,9 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Returns the list of clips posted by the user.
    *
-   * @return clips
+   * @return
    */
   @NonNull
   public List<Clip> getClips() {
@@ -203,8 +221,10 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Returns the friendships in which the user is either the initiator or the recipient of the
+   * request.
    *
-   * @return relationshipsInitiated, relationshipsReceived
+   * @return
    */
   @NonNull
   @JsonIgnore //for now
@@ -218,8 +238,9 @@ public class User implements Comparable<User> {
   }
 
   /**
+   * Returns the relationships in which the user is following another user
    *
-   * @return relationshipsInitiated
+   * @return
    */
   @NonNull
   @JsonIgnore //for now
@@ -232,21 +253,18 @@ public class User implements Comparable<User> {
         .collect(Collectors.toList());
   }
 
-  /**
-   *
-   * @param other- User type
-   * @return username
-   */
   @Override
   public int compareTo(User other) {
     return username.compareToIgnoreCase(other.username);
   }
 
   /**
-   * Holds different music genres to select from
+   * The {@code Genre} enum enumerates different musical genres that the user can select from for
+   * their favorite genre.
    */
   public enum Genre {
     CLASSICAL, ROCK_N_ROLL, POP, JAZZ, METAL, HIPHOP, R_AND_B, BLUES, FOLK, OPERA, ELECTRONIC,
     ALTERNATIVE, PUNK, REGGAE, CLASSIC_ROCK, DISCO, SWING, FUNK, COUNTRY, CONJUNTO, LATIN, FILM
   }
+
 }
