@@ -106,67 +106,127 @@ public class Clip {
     return id;
   }
 
+  /**
+   * Returns songTitle for music clip
+   * @return
+   */
   @NonNull
   public String getSongTitle() {
     return songTitle;
   }
 
+  /**
+   * Sets songTitle for music clip
+   * @param songTitle- String type
+   */
   public void setSongTitle(@NonNull String songTitle) {
     this.songTitle = songTitle;
   }
 
+  /**
+   * Returns name of Artist for music clip
+   * @return
+   */
   @NonNull
   public String getArtist() {
     return artist;
   }
 
+  /**
+   * Sets name of Artist for music clip
+   * @param artist- String type
+   */
   public void setArtist(@NonNull String artist) {
     this.artist = artist;
   }
 
+  /**
+   * Returns name of Album for music clip
+   * @return
+   */
   public String getAlbum() {
     return album;
   }
 
+  /**
+   * Sets name of Album for music clip
+   * @param album- String type
+   */
   public void setAlbum(String album) {
     this.album = album;
   }
 
+  /**
+   * Returns unique identifier for the clip
+   * @return
+   */
   @NonNull
   public String getTrackKey() {
     return trackKey;
   }
 
+  /**
+   * Sets unique identifier for the clip
+   * @param trackKey- String type
+   */
   public void setTrackKey(@NonNull String trackKey) {
     this.trackKey = trackKey;
   }
 
+  /**
+   * Returns time that music clip starts
+   * @return
+   */
   public int getBeginTimestamp() {
     return beginTimestamp;
   }
 
+  /**
+   * Sets time that music clip starts
+   * @param beginTimestamp- int type
+   */
   public void setBeginTimestamp(int beginTimestamp) {
     this.beginTimestamp = beginTimestamp;
   }
 
+  /**
+   * Returns time music clip ends
+   * @return
+   */
   public int getEndTimestamp() {
     return endTimestamp;
   }
 
+  /**
+   * Sets time music clip ends
+   * @param endTimestamp- int type
+   */
   public void setEndTimestamp(int endTimestamp) {
     this.endTimestamp = endTimestamp;
   }
 
+  /**
+   * Returns the date and time of day a clip is posted
+   * @return
+   */
   @NonNull
   public Date getDateTimePosted() {
     return dateTimePosted;
   }
 
+  /**
+   * Returns User who posted clip
+   * @return
+   */
   @NonNull
   public User getUser() {
     return user;
   }
 
+  /**
+   * Sets User who posted clip
+   * @param user- User type
+   */
   public void setUser(@NonNull User user) {
     this.user = user;
   }
