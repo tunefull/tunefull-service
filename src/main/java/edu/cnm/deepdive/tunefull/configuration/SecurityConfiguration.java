@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -39,12 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests((auth) ->
-            //set up so that everyone can get to discover - will take some
-            //messing with the endpoints for the antPattern
-            //Add any other endpoint-specific rules
-            // define permit all/anonymous on client-side too
-            //auth.antMatchers(HttpMethod.GET, "clips/**").permitAll()
-            auth.anyRequest().authenticated()
+            // TODO check to make sure this works; set up on client-side
+            //define permit all/anonymous on client-side too
+            auth.antMatchers(HttpMethod.GET, "clips/discovery").permitAll()
+            .anyRequest().authenticated()
         )
         .oauth2ResourceServer().jwt()
         .jwtAuthenticationConverter(userService);

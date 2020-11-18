@@ -44,7 +44,7 @@ public class ClipController {
   }
 
   // returns clips for discovery (no auth needed)
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/discovery", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(
       @RequestParam(required = false, defaultValue = "10") int limit,
       @RequestParam(required = false, defaultValue = "0") int offset) {
