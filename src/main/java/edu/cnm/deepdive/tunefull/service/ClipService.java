@@ -14,6 +14,16 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * User entity holds the data model for User data and functions in the TuneFull server.
+ *
+ * @author Robert Dominugez
+ * @author Roderick Frechette
+ * @author Laura Steiner
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 @Service
 public class ClipService {
 

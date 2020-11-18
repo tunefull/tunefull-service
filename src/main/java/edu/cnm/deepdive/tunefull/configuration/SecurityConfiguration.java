@@ -18,7 +18,16 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-
+/**
+ * User entity holds the data model for User data and functions in the TuneFull server.
+ *
+ * @author Robert Dominugez
+ * @author Roderick Frechette
+ * @author Laura Steiner
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

@@ -18,6 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * User entity holds the data model for User data and functions in the TuneFull server.
+ *
+ * @author Robert Dominugez
+ * @author Roderick Frechette
+ * @author Laura Steiner
+ *
+ * @version 1.0
+ * @since 1.0
+ */
+
 @RestController
 @RequestMapping("/users")
 @ExposesResourceFor(User.class)
