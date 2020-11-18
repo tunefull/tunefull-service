@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ *
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -36,26 +36,47 @@ public class RelationshipController {
     this.relationshipService = relationshipService;
   }
 
-  // /relationships/friendships: gets all relationships in which the user is a friend
+  /**
+   * /relationships/friendships: gets all relationships in which the user is a friend
+   *
+   * @param auth- Authentication type
+   * @return list of relationship
+   */
   @GetMapping(value = "/friendships", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFriends(Authentication auth) {
     return relationshipService.getFriendships((User) auth.getPrincipal());
   }
 
-  // /relationships/follows: gets all relationships in which the user is following someone
+  /**
+   * /relationships/follows: gets all relationships in which the user is following someone
+   *
+   * @param auth- Authentication type
+   * @return list of relationship
+   */
   @GetMapping(value = "/follows", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFollows(Authentication auth) {
     return relationshipService.getFollows((User) auth.getPrincipal());
   }
 
-  // /relationships/unaccepted: gets all relationships in which the user has
-  // received a friend request and hasn't responded yet
+  /**
+   * /relationships/unaccepted: gets all relationships in which the user has
+   * received a friend request and hasn't responded yet
+   *
+   * @param auth- Authentication type
+   * @return list of relationship
+   */
   @GetMapping(value = "/unaccepted", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myUnacceptedRequests(Authentication auth) {
     return relationshipService.getUnaccepted((User) auth.getPrincipal());
   }
 
-  // /relationships: creates a relationship between two users
+  /**
+   * /relationships: creates a relationship between two users
+   *
+   * @param auth- Authentication type
+   * @param relationship- Relationship type
+   * @return list of relationship
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Relationship createRelationship(Authentication auth,
@@ -63,7 +84,13 @@ public class RelationshipController {
     return relationshipService.post(relationship);
   }
 
-  // /relationships: updates a relationship between two users
+  /**
+   * /relationships: updates a relationship between two users
+   *
+   * @param auth- Authentication type
+   * @param relationship- Relationship type
+   * @return list of relationship
+   */
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
       MediaType.APPLICATION_JSON_VALUE)
   public Relationship updateRelationship(Authentication auth,
