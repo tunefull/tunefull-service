@@ -22,14 +22,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface ClipRepository extends JpaRepository<Clip, Long> {
 
   /**
-   * Gets all clips ordered by most recent-less recent
-   *
-   * @return List of clips
-   */
-  List<Clip> getAllByOrderByDateTimePostedDesc();
-
-
-  /**
    * this gets all clips for Discovery DERBY-specific
    *
    * @param limit-  int value used in query
@@ -39,12 +31,6 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   @Query(value = "SELECT * FROM Clip ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
   List<Clip> getAllByLimitAndOffset(int limit, int offset);
-/**
- * Will this also be the one that we use when getting clips for users that
- are friends or follows?
- Gets all clips for a particular user, ordered by most recent-less recent
- */
-//  List<Clip> getAllByUserAndLimitAndOffset(User user);
 
   /**
    * @param userId- long value used in query
@@ -65,6 +51,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
-  List<Clip> getAllByUserIsInOrderByDateTimePostedDesc(Collection<User> users, int limit, int offset);
+  List<Clip> getAllByUserIsInOrderByDateTimePostedDesc(Collection<User> users, int limit,
+      int offset);
 
 }

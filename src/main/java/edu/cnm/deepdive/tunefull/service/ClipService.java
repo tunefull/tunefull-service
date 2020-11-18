@@ -18,15 +18,11 @@ import org.springframework.stereotype.Service;
 public class ClipService {
 
   private final ClipRepository clipRepository;
-  private final UserRepository userRepository;
-  private final RelationshipRepository relationshipRepository;
 
   @Autowired
   public ClipService(ClipRepository clipRepository, UserRepository userRepository,
       RelationshipRepository relationshipRepository) {
     this.clipRepository = clipRepository;
-    this.userRepository = userRepository;
-    this.relationshipRepository = relationshipRepository;
   }
 
   public Optional<Clip> get(long id) {
