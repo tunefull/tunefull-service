@@ -3,6 +3,7 @@ package edu.cnm.deepdive.tunefull.model.dao;
 import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -54,8 +55,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * @param requester- User type
    * @return list of relationship
    */
-  List<Relationship> getAllByRequesterAndFriendRelationshipFalse(
-      User requester);
+  List<Relationship> getAllByRequesterAndFriendRelationshipFalse(User requester);
 
   /**
    * Gets all unaccepted friendships for a particular requested (i.e., requests that that user
@@ -65,5 +65,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * @return list of Relationship
    */
   List<Relationship> getAllByRequestedAndFriendAcceptedNull(User requested);
+
+  Optional<Relationship> findFirstByRequesterAndRequested(User requester, User requested);
 
 }

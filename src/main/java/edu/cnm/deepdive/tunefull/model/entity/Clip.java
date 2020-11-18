@@ -18,7 +18,10 @@ import org.springframework.lang.NonNull;
 
 
 /**
- * Clip entity holds data model for clips of music on Tunefull application
+ * <p>
+ * The {@code Clip} entity holds the data for each clip of music shared in the TuneFull
+ * server.
+ * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
@@ -35,7 +38,7 @@ import org.springframework.lang.NonNull;
 public class Clip {
 
   /**
-   * Holds Id value
+   * Holds an auto-generated id value for identification of the clip in the TuneFull database.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,46 +46,46 @@ public class Clip {
   private Long id;
 
   /**
-   * Holds songTitle value
+   * Holds the title of the song the clip is from.
    */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String songTitle;
 
   /**
-   * Holds artist value
+   * Holds the name of the clip's artist
    */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String artist;
 
   /**
-   * Holds album value
+   * Holds the name of the album associated with the clip. This attribute is nullable.
    */
   @Column(updatable = false)
   private String album;
 
   /**
-   * Holds trackKey value
+   * Holds the track key associated with the song on Spotify.
    */
   @NonNull
   @Column(nullable = false, updatable = false)
   private String trackKey;
 
   /**
-   * Holds beginTimestamp value
+   * Holds the timestamp for the beginning of the clip.
    */
   @Column(updatable = false)
   private int beginTimestamp;
 
   /**
-   * Holds endTimestamp value
+   * Holds the timestamp for the end of the clip.
    */
   @Column(updatable = false)
   private int endTimestamp;
 
   /**
-   * Holds dateTimePosted value
+   * Holds the date and time that the clip was posted.
    */
   @NonNull
   @CreationTimestamp
@@ -91,7 +94,7 @@ public class Clip {
   private Date dateTimePosted;
 
   /**
-   * Holds user value
+   * References the {@link User} who created the clip.
    */
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER)

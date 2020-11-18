@@ -3,11 +3,14 @@ package edu.cnm.deepdive.tunefull.controller;
 import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import edu.cnm.deepdive.tunefull.service.RelationshipService;
+import edu.cnm.deepdive.tunefull.service.UserService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,15 +28,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/relationships")
+//@RequestMapping("/relationships")
 @ExposesResourceFor(Relationship.class)
 public class RelationshipController {
 
   private final RelationshipService relationshipService;
+  private final UserService userService;
 
   public RelationshipController(
-      RelationshipService relationshipService) {
+      RelationshipService relationshipService,
+      UserService userService) {
     this.relationshipService = relationshipService;
+    this.userService = userService;
   }
 
   /**
@@ -70,37 +76,35 @@ public class RelationshipController {
     return relationshipService.getUnaccepted((User) auth.getPrincipal());
   }
 
-  /**
-   * /relationships: creates a relationship between two users
-   *
-   * @param auth- Authentication type
-   * @param relationship- Relationship type
-   * @return list of relationship
-   */
+
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public Relationship createRelationship(Authentication auth,
-      @RequestBody Relationship relationship) {
-    return relationshipService.post(relationship);
+  public Relationship requestFriendship(Authentication auth,
+      @RequestBody User user) {
+    return userService.get(user.getId())
+        .map((requested) -> relationshipService.requestFriendship((User) auth.getPrincipal(), requested))
+        .orElseThrow(NoSuchElementException::new);
   }
 
-  /**
-   * /relationships: updates a relationship between two users
-   *
-   * @param auth- Authentication type
-   * @param relationship- Relationship type
-   * @return list of relationship
-   */
-  @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+  // /relationships: start following another user
+  @PostMapping(value = "/follows", consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public Relationship startFollowing(Authentication auth,
+      @RequestBody User user) {
+    return userService.get(user.getId())
+        .map((followed) -> relationshipService.startFollowing((User) auth.getPrincipal(), followed))
+        .orElseThrow(NoSuchElementException::new);
+  }
+
+
+  // /relationships: updates a relationship between two users
+  @PutMapping(value = "/friendships/{relationshipId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
       MediaType.APPLICATION_JSON_VALUE)
-  public Relationship updateRelationship(Authentication auth,
-      @RequestBody Relationship relationship) {
-    User user = (User) auth.getPrincipal();
-    if (relationship.getRequester() == user || relationship.getRequested() == user) {
-      return relationshipService.update(relationship);
-    } else {
-      return null;
-    }
+  public boolean setFriendshipAccepted(Authentication auth,
+      @PathVariable long relationshipId, @RequestBody boolean accepted) {
+    return relationshipService.get(relationshipId)
+        .map((friendship) -> relationshipService.setFriendshipAccepted(friendship, accepted))
+        .orElseThrow(NoSuchElementException::new);
   }
 
 }

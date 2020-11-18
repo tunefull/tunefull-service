@@ -4,7 +4,8 @@ import edu.cnm.deepdive.tunefull.model.dao.RelationshipRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,9 +27,8 @@ public class RelationshipService {
     this.relationshipRepository = relationshipRepository;
   }
 
-  public Relationship get(long id) {
-    return relationshipRepository.findById(id)
-        .orElseThrow(NoSuchElementException::new);
+  public Optional<Relationship> get(long id) {
+    return relationshipRepository.findById(id);
   }
 
   public List<Relationship> getFriendships(User user) {
@@ -44,13 +44,49 @@ public class RelationshipService {
     return relationshipRepository.getAllByRequestedAndFriendAcceptedNull(user);
   }
 
-  public Relationship post(Relationship relationship) {
+  public Relationship requestFriendship(User requester, User requested) {
+    // TODO figure out what to do if there is a pending friend request the other way - should automatically create the friendship
+    return relationshipRepository.findFirstByRequesterAndRequested(requester, requested)
+        .map((relationship) -> {
+          if (!(relationship.isFriendRelationship()
+              && Objects.equals(relationship.getFriendAccepted(), true))) {
+            relationship.setFriendRelationship(true);
+            relationship.setFriendAccepted(null);
+            return relationshipRepository.save(relationship);
+          } else {
+            return relationship;
+          }
+        })
+        .orElseGet(() -> {
+          Relationship relationship = new Relationship();
+          relationship.setRequester(requester);
+          relationship.setRequested(requested);
+          relationship.setFriendRelationship(true);
+          relationship.setFriendAccepted(null);
+          return relationshipRepository.save(relationship);
+        });
+  }
+
+  public Relationship startFollowing(User follower, User followed) {
+    return relationshipRepository.findFirstByRequesterAndRequested(follower, followed)
+        .orElseGet(() -> {
+          Relationship relationship = new Relationship();
+          relationship.setRequester(follower);
+          relationship.setRequested(followed);
+          relationship.setFriendRelationship(false);
+          relationship.setFriendAccepted(null);
+          return relationshipRepository.save(relationship);
+        });
+  }
+
+  public Relationship save(Relationship relationship) {
     return relationshipRepository.save(relationship);
   }
 
-  public Relationship update(Relationship relationship) {
-    return relationshipRepository.save(relationship);
-    // TODO get help with this one because I don't think this is the right way
+  public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {
+    friendship.setFriendAccepted(accepted);
+    relationshipRepository.save(friendship);
+    return accepted;
   }
 
 }
