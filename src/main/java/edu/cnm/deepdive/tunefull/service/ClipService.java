@@ -6,6 +6,7 @@ import edu.cnm.deepdive.tunefull.model.dao.UserRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Clip;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class ClipService {
     this.relationshipRepository = relationshipRepository;
   }
 
+  public Optional<Clip> get(long id) {
+    return clipRepository.findById(id);
+  }
+
   public List<Clip> getAllFiltered(User user, int limit, int offset, Source source) {
     // TODO methods in ClipRepository that allow us to query clips according to these params
     switch (source) {
@@ -38,6 +43,10 @@ public class ClipService {
       default:
         return null;
     }
+  }
+
+  public List<Clip> getAllForDiscovery(int limit, int offset) {
+    return clipRepository.getAllByLimitAndOffset(limit, offset);
   }
 
 
