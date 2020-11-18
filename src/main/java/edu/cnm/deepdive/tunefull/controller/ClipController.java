@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * Clip controller
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -43,8 +43,17 @@ public class ClipController {
     this.clipService = clipService;
   }
 
-  // /clips: returns all of the most recent clips OR only clips by friends OR only clips by followers
-  // OR only clips by relationships with the user OR only clips by the user
+
+  /**
+   *
+   * clips: returns all of the most recent clips OR only clips by friends OR only clips by followers
+   * OR only clips by relationships with the user OR only clips by the user
+   * @param auth- User type
+   * @param limit- User type
+   * @param offset- User type
+   * @param source- User type
+   * @return returns clipService
+   * */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(Authentication auth,
       @RequestParam(required = false, defaultValue = "10") int limit,
@@ -53,7 +62,12 @@ public class ClipController {
     return clipService.getAllFiltered((User) auth.getPrincipal(), limit, offset, source);
   }
 
-  // returns clips for discovery (no auth needed)
+  /**
+   *
+   * @param limit- int type
+   * @param offset- int type
+   * @return returns clips for discovery (no auth needed)
+   */
   @GetMapping(value = "/discovery", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(
       @RequestParam(required = false, defaultValue = "10") int limit,
@@ -61,14 +75,26 @@ public class ClipController {
     return clipService.getAllForDiscovery(limit, offset);
   }
 
-  // /clips/clipId: returns a selected clip
+  /**
+   * /clips/clipId: returns a selected clip
+   *
+   * @param auth- Authentication type
+   * @param clipId- long type
+   * @return returns a selected clip
+   * */
   @GetMapping(value = "/{clipId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip get(Authentication auth, @PathVariable long clipId) {
     return clipService.get(clipId)
         .orElseThrow(NoSuchElementException::new);
   }
 
-  // /clips: posts a clip for the current user
+  /**
+   * /clips: posts a clip for the current user
+   *
+   * @param auth- Authentication type
+   * @param clip- Clip type
+   * @return returns posted clip for current user
+   * */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip post(Authentication auth, @RequestBody Clip clip) {
@@ -77,7 +103,12 @@ public class ClipController {
         : null;
   }
 
-  // deletes a clip only if it has been posted by the current user
+  /**
+   * deletes a clip only if it has been posted by the current user
+   *
+   * @param auth- Authentication type
+   * @param clip- Clip type
+   * */
   @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth, @RequestBody Clip clip) {
     if (clip.getUser() == auth.getPrincipal()) {
