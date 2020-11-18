@@ -63,6 +63,8 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
    * @param users- collection of User class
    * @return list of clips
    */
-  List<Clip> getAllByUserIsInOrderByDateTimePostedDesc(Collection<User> users);
+  @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "
+      + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
+  List<Clip> getAllByUserIsInOrderByDateTimePostedDesc(Collection<User> users, int limit, int offset);
 
 }
