@@ -100,61 +100,112 @@ public class User implements Comparable<User> {
   @JsonIgnore //for now
   private final List<Clip> clips = new LinkedList<>();
 
+  /**
+   *
+   * @return id
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   *
+   * @return username
+   */
   @NonNull
   public String getUsername() {
     return username;
   }
 
-
+  /**
+   *
+   * @param username- String type
+   */
   public void setUsername(@NonNull String username) {
     this.username = username;
   }
 
+  /**
+   *
+   * @return email
+   */
   @NonNull
   public String getEmail() {
     return email;
   }
 
+  /**
+   *
+   * @param email- String type
+   */
   public void setEmail(@NonNull String email) {
     this.email = email;
   }
 
+  /**
+   *
+   * @return genre
+   */
   public Genre getGenre() {
     return genre;
   }
 
+  /**
+   *
+   * @param genre- enum type
+   */
   public void setGenre(Genre genre) {
     this.genre = genre;
   }
 
+  /**
+   *
+   * @return oauth
+   */
   @NonNull
   public String getOauth() {
     return oauth;
   }
 
+  /**
+   *
+   * @param oauth- String type
+   */
   public void setOauth(@NonNull String oauth) {
     this.oauth = oauth;
   }
 
+  /**
+   *
+   * @return relationshipsInitiated
+   */
   @NonNull
   public List<Relationship> getRelationshipsInitiated() {
     return relationshipsInitiated;
   }
 
+  /**
+   *
+   * @return relationshipsReceived
+   */
   @NonNull
   public List<Relationship> getRelationshipsReceived() {
     return relationshipsReceived;
   }
 
+  /**
+   *
+   * @return clips
+   */
   @NonNull
   public List<Clip> getClips() {
     return clips;
   }
 
+  /**
+   *
+   * @return relationshipsInitiated, relationshipsReceived
+   */
   @NonNull
   @JsonIgnore //for now
   public List<Relationship> getFriendships() {
@@ -166,6 +217,10 @@ public class User implements Comparable<User> {
         .collect(Collectors.toList());
   }
 
+  /**
+   *
+   * @return relationshipsInitiated
+   */
   @NonNull
   @JsonIgnore //for now
   public List<Relationship> getFollowing() {
@@ -177,11 +232,19 @@ public class User implements Comparable<User> {
         .collect(Collectors.toList());
   }
 
+  /**
+   *
+   * @param other- User type
+   * @return username
+   */
   @Override
   public int compareTo(User other) {
     return username.compareToIgnoreCase(other.username);
   }
 
+  /**
+   * Holds different music genres to select from
+   */
   public enum Genre {
     CLASSICAL, ROCK_N_ROLL, POP, JAZZ, METAL, HIPHOP, R_AND_B, BLUES, FOLK, OPERA, ELECTRONIC,
     ALTERNATIVE, PUNK, REGGAE, CLASSIC_ROCK, DISCO, SWING, FUNK, COUNTRY, CONJUNTO, LATIN, FILM
