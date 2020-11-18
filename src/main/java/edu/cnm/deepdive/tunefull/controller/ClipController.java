@@ -62,11 +62,9 @@ public class ClipController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip post(Authentication auth, @RequestBody Clip clip) {
-    if (clip.getUser() == auth.getPrincipal()) {
-      return clipService.post(clip);
-    } else {
-      return null;
-    }
+    return (clip.getUser() == auth.getPrincipal())
+        ? clipService.post(clip)
+        : null;
   }
 
   // deletes a clip only if it has been posted by the current user
