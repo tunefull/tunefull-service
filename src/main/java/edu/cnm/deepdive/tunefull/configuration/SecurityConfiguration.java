@@ -18,13 +18,14 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+
 /**
- * Provides security functions for the TuneFull Application.
+ * Provides security functions for the TuneFull Application, and provides for authentication between
+ * the client app and the server.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -40,40 +41,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private String clientId;
 
   /**
+   * Constructor for {@code SecurityConfiguration}.
    *
-   * @param userService- UserService type
+   * @param userService - UserService
    */
   public SecurityConfiguration(UserService userService) {
     this.userService = userService;
   }
 
   /**
-   * allows us to specify which endpoints need security (i.e. which ones need
-   * you to be logged in - so not discover)
+   * Allows for specification of which endpoints need security and which do not (i.e. which endpoints
+   * need the user to be logged in).
    *
-   * @param http- HttpSecurity type
+   * @param http - HttpSecurity
    * @throws Exception
-   *
-   * */
+   */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests((auth) ->
-            // TODO check to make sure this works; set up on client-side
-            //define permit all/anonymous on client-side too
+            // TODO set up on client-side: define permit all/anonymous on client-side too
             auth.antMatchers(HttpMethod.GET, "clips/discovery").permitAll()
-            .anyRequest().authenticated()
+                .anyRequest().authenticated()
         )
         .oauth2ResourceServer().jwt()
         .jwtAuthenticationConverter(userService);
   }
 
   /**
-   * basic spring decoder only validates dates, so to get more validation we
-   * need to create our own
+   * Because the basic spring decoder only validates dates, this bean allows for specialized validation.
    *
-   * @return Returns JwtDecoder
-   * */
+   * @return JwtDecoder
+   */
   @Bean
   public JwtDecoder jwtDecoder() {
     NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);

@@ -14,13 +14,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+
 /**
- * User Service responds to User Controller
+ * {@code UserService} provides a layer between {@link UserRepository} and {@link
+ * edu.cnm.deepdive.tunefull.controller.UserController} for business logic.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -31,23 +32,24 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   private final RelationshipRepository relationshipRepository;
 
   /**
+   * Autowired constructor for {@code UserService}
    *
-   * @param userRepository- UserRepository type
-   * @param relationshipRepository- RelationshipRepository type
+   * @param userRepository - UserRepository
+   * @param relationshipRepository - RelationshipRepository
    */
   @Autowired
-  public UserService(UserRepository userRepository,
-      RelationshipRepository relationshipRepository) {
+  public UserService(UserRepository userRepository, RelationshipRepository relationshipRepository) {
     this.userRepository = userRepository;
     this.relationshipRepository = relationshipRepository;
   }
 
   /**
+   * Gets the user with the oauth key, or creates the user if one does not exist for this oauth.
    *
-   * @param oauthKey- String type
-   * @param username- String type
-   * @param email- String type
-   * @return Returns User
+   * @param oauthKey - String
+   * @param username - String
+   * @param email - String
+   * @return the User that has been found or created
    */
   public User getOrCreate(String oauthKey, String username, String email) {
     return userRepository.findFirstByOauth(oauthKey)
@@ -61,9 +63,11 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   }
 
   /**
+   * Overrides the {@code convert} method to convert a Json web token into a
+   * UsernamePasswordAuthenticationToken
    *
-   * @param jwt- Jwt type
-   * @return Returns UsernamePasswordAuthenticationToken
+   * @param jwt - Jwt
+   * @return UsernamePasswordAuthenticationToken
    */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
@@ -77,27 +81,30 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   }
 
   /**
+   * Finds and returns a single User object by id.
    *
-   * @param id- long type
-   * @return Returns Optional User
+   * @param id - long
+   * @return Optional&ltUser&gt
    */
   public Optional<User> get(long id) {
     return userRepository.findById(id);
   }
 
   /**
+   * Returns a list of all users, ordered by username in alphabetical order.
    *
-   * @return Returns List of User
+   * @return List&ltUser&gt
    */
   public List<User> getAll() {
     return userRepository.getAllByOrderByUsernameAsc();
   }
 
   /**
+   * Updates the user's favorite genre.
    *
-   * @param user- User type
-   * @param genre- Genre type
-   * @return Returns Genre
+   * @param user - User
+   * @param genre - Genre enum
+   * @return Genre enum
    */
   public Genre updateGenre(User user, Genre genre) {
     user.setGenre(genre);
@@ -105,8 +112,9 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   }
 
   /**
+   * Deletes the current user.
    *
-   * @param user- User type
+   * @param user - User
    */
   public void delete(User user) {
     userRepository.delete(user);

@@ -1,20 +1,22 @@
 package edu.cnm.deepdive.tunefull.service;
 
+import edu.cnm.deepdive.tunefull.model.dao.ClipRepository;
 import edu.cnm.deepdive.tunefull.model.dao.RelationshipRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Relationship Service responds to Relationship Controller
+ * {@code RelationshipService} provides a layer between {@link RelationshipRepository} and {@link
+ * edu.cnm.deepdive.tunefull.controller.RelationshipController} for business logic.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -24,28 +26,30 @@ public class RelationshipService {
   private final RelationshipRepository relationshipRepository;
 
   /**
+   * Autowired constructor for RelationshipService.
    *
-   * @param relationshipRepository RelationshipRepository type
+   * @param relationshipRepository - RelationshipRepository
    */
+  @Autowired
   public RelationshipService(RelationshipRepository relationshipRepository) {
     this.relationshipRepository = relationshipRepository;
   }
 
   /**
-   * Gets the Relationship by the id if it exists.
+   * Gets the Relationship by its id, if it exists.
    *
-   * @param id Long type
-   * @return Returns Optional Relationship
+   * @param id - Long
+   * @return Optional&ltRelationship&gt
    */
   public Optional<Relationship> get(long id) {
     return relationshipRepository.findById(id);
   }
 
   /**
-   * Gets the Relationship between two users by the two users.
+   * Gets the Relationship between two users, using the two users as parameters.
    *
-   * @param user User type
-   * @return Returns List of Relationships
+   * @param user - User
+   * @return List&ltRelationships&gt
    */
   public List<Relationship> getFriendships(User user) {
     return relationshipRepository
@@ -55,30 +59,30 @@ public class RelationshipService {
   /**
    * Gets all the Relationships in which the user is following other users
    *
-   * @param user User Type
-   * @return Returns List of Relationships
+   * @param user - User
+   * @return List&ltRelationships&gt
    */
   public List<Relationship> getFollows(User user) {
     return relationshipRepository.getAllByRequesterAndFriendRelationshipFalse(user);
   }
 
   /**
-   * Gets all the Relationships in which the user has been sent a friend request and the user
-   * has not responded to yet.
+   * Gets all the Relationships in which the user has been sent a friend request and the user has
+   * not responded yet.
    *
-   * @param user User type
-   * @return Returns List of Relationships
+   * @param user - User
+   * @return List&ltRelationships&gt
    */
   public List<Relationship> getPending(User user) {
     return relationshipRepository.getAllByRequestedAndFriendAcceptedNull(user);
   }
 
   /**
-   * Creates a relationship between two users in which a friend request has been sent.
+   * Creates a relationship between two users by sending a friend request.
    *
-   * @param requester User Type
-   * @param requested User Type
-   * @return Returns List of Relationships
+   * @param requester - User
+   * @param requested - User
+   * @return the relationship that was created
    */
   public Relationship requestFriendship(User requester, User requested) {
     // TODO figure out what to do if there is a pending friend request the other way - should automatically create the friendship
@@ -104,11 +108,11 @@ public class RelationshipService {
   }
 
   /**
-   * Creates a relationship between two users in which one is following the other
+   * Creates a relationship between two users in which one is following the other.
    *
-   * @param follower User Type
-   * @param followed User Type
-   * @return Returns Relationship
+   * @param follower - User
+   * @param followed - User
+   * @return the relationship that was created
    */
   public Relationship startFollowing(User follower, User followed) {
     return relationshipRepository.findFirstByRequesterAndRequested(follower, followed)
@@ -123,10 +127,10 @@ public class RelationshipService {
   }
 
   /**
-   * Saves the relationship to the repository
+   * Saves the relationship to the repository.
    *
-   * @param relationship Relationship Type
-   * @return Returns Relationship
+   * @param relationship - Relationship
+   * @return returns the relationship that was saved
    */
   public Relationship save(Relationship relationship) {
     return relationshipRepository.save(relationship);
@@ -135,9 +139,9 @@ public class RelationshipService {
   /**
    * Sets the boolean that determines whether a relationship is a friendship or not.
    *
-   * @param friendship Relationship type
-   * @param accepted boolean
-   * @return Returns boolean
+   * @param friendship - Relationship
+   * @param accepted - boolean
+   * @return the boolean that has been set
    */
   public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {
     friendship.setFriendAccepted(accepted);
