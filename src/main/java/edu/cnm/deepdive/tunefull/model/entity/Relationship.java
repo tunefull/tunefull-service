@@ -94,7 +94,7 @@ public class Relationship {
   /**
    * Sets the {@link User} entity associated with the user who requested the relationship.
    *
-   * @param requester - {@link User}
+   * @param requester {@link User}
    */
   public void setRequester(@NonNull User requester) {
     this.requester = requester;
@@ -114,7 +114,7 @@ public class Relationship {
   /**
    * Sets the {@link User} entity associated with the user who received the relationship request.
    *
-   * @param requested - {@link User}
+   * @param requested {@link User}
    */
   public void setRequested(@NonNull User requested) {
     this.requested = requested;
@@ -134,7 +134,7 @@ public class Relationship {
    * Sets the boolean indicating whether the relationship is a friendship or simply a follow
    * relationship.
    *
-   * @param friendRelationship - boolean
+   * @param friendRelationship boolean
    */
   public void setFriendRelationship(boolean friendRelationship) {
     this.friendRelationship = friendRelationship;
@@ -154,7 +154,7 @@ public class Relationship {
    * Sets the Boolean indicating whether a friend relationship has been accepted, denied, or not yet
    * responded to.
    *
-   * @param friendAccepted - Boolean
+   * @param friendAccepted Boolean
    */
   public void setFriendAccepted(Boolean friendAccepted) {
     this.friendAccepted = friendAccepted;
@@ -164,7 +164,7 @@ public class Relationship {
    * Returns the user on the other side of the relationship from the current user: the requested if
    * the current user is the requester, and the requester if the current user is the requested.
    *
-   * @param self - {@link User}
+   * @param self {@link User}
    * @return the user in the relationship that is not the current user
    */
   public User other(User self) {

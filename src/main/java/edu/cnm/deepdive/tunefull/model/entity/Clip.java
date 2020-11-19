@@ -121,7 +121,7 @@ public class Clip {
   /**
    * Sets the title for the song the clip is from
    *
-   * @param songTitle - String
+   * @param songTitle String
    */
   public void setSongTitle(@NonNull String songTitle) {
     this.songTitle = songTitle;
@@ -140,7 +140,7 @@ public class Clip {
   /**
    * Sets the name of the clip's artist
    *
-   * @param artist- String type
+   * @param artist String
    */
   public void setArtist(@NonNull String artist) {
     this.artist = artist;
@@ -158,7 +158,7 @@ public class Clip {
   /**
    * Sets the name of the clip's album
    *
-   * @param album - String
+   * @param album String
    */
   public void setAlbum(String album) {
     this.album = album;
@@ -177,7 +177,7 @@ public class Clip {
   /**
    * Sets the track key associated with the song on Spotify.
    *
-   * @param trackKey - String
+   * @param trackKey String
    */
   public void setTrackKey(@NonNull String trackKey) {
     this.trackKey = trackKey;
@@ -195,7 +195,7 @@ public class Clip {
   /**
    * Sets the timestamp for the beginning of the clip
    *
-   * @param beginTimestamp - int
+   * @param beginTimestamp int
    */
   public void setBeginTimestamp(int beginTimestamp) {
     this.beginTimestamp = beginTimestamp;
@@ -213,7 +213,7 @@ public class Clip {
   /**
    * Sets the timestamp for the beginning of the clip
    *
-   * @param endTimestamp - int
+   * @param endTimestamp int
    */
   public void setEndTimestamp(int endTimestamp) {
     this.endTimestamp = endTimestamp;
@@ -242,7 +242,7 @@ public class Clip {
   /**
    * Sets the {@link User} who posted the clip
    *
-   * @param user - {@link User}
+   * @param user {@link User}
    */
   public void setUser(@NonNull User user) {
     this.user = user;

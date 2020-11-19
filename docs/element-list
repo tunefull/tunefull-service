@@ -1,3 +1,6 @@
 edu.cnm.deepdive.tunefull
+edu.cnm.deepdive.tunefull.configuration
+edu.cnm.deepdive.tunefull.controller
 edu.cnm.deepdive.tunefull.model.dao
 edu.cnm.deepdive.tunefull.model.entity
+edu.cnm.deepdive.tunefull.service

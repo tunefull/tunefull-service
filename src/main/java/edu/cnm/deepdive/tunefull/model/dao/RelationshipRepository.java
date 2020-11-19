@@ -27,7 +27,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
   /**
    * Gets all friendships for a particular requester.
    *
-   * @param requester - User
+   * @param requester User
    * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipTrue(User requester);
@@ -35,7 +35,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
   /**
    * Gets all friendships for a particular requested.
    *
-   * @param requested - User
+   * @param requested User
    * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequestedAndFriendRelationshipTrue(User requested);
@@ -44,8 +44,8 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * Gets all friendships for a particular user - the same {@link User} should be used for both
    * requester and requested.
    *
-   * @param requester - User
-   * @param requested - User
+   * @param requester User
+   * @param requested User
    * @return List&ltRelationship&gt
    */
   List<Relationship>
@@ -55,7 +55,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
   /**
    * Gets all follows for a particular user.
    *
-   * @param requester - User
+   * @param requester User
    * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipFalse(User requester);
@@ -64,7 +64,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * Gets all pending friendships for a particular user (i.e., requests that that user hasn't
    * responded to yet).
    *
-   * @param requested - User
+   * @param requested User
    * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequestedAndFriendAcceptedNull(User requested);
@@ -72,8 +72,8 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
   /**
    * Gets a relationship given its two users.
    *
-   * @param requester - User
-   * @param requested - User
+   * @param requester User
+   * @param requested User
    * @return Optional&ltRelationship&gt
    */
   Optional<Relationship> findFirstByRequesterAndRequested(User requester, User requested);

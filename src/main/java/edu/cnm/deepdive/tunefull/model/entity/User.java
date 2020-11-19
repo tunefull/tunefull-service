@@ -130,7 +130,7 @@ public class User implements Comparable<User> {
   /**
    * Sets the user's username.
    *
-   * @param username - String
+   * @param username String
    */
   public void setUsername(@NonNull String username) {
     this.username = username;
@@ -149,7 +149,7 @@ public class User implements Comparable<User> {
   /**
    * Sets the user's email address.
    *
-   * @param email - String
+   * @param email String
    */
   public void setEmail(@NonNull String email) {
     this.email = email;
@@ -167,7 +167,7 @@ public class User implements Comparable<User> {
   /**
    * Sets the user's favorite genre.
    *
-   * @param genre - an enumerated value from {@link Genre}
+   * @param genre an enumerated value from {@link Genre}
    */
   public void setGenre(Genre genre) {
     this.genre = genre;
@@ -186,7 +186,7 @@ public class User implements Comparable<User> {
   /**
    * Sets the user's OAuth 2.0 key.
    *
-   * @param oauth- String
+   * @param oauth String
    */
   public void setOauth(@NonNull String oauth) {
     this.oauth = oauth;

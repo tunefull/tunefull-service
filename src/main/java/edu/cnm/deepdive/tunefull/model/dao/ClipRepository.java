@@ -27,8 +27,8 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   /**
    * Gets all clips, limited by parameters, for use in Discovery mode.
    *
-   * @param limit  -  int
-   * @param offset - int
+   * @param limit int
+   * @param offset int
    * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip ORDER BY date_time_posted DESC "
@@ -38,9 +38,9 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   /**
    * Gets all clips for a particular user, limited by parameters.
    *
-   * @param userId - long
-   * @param limit  -  int
-   * @param offset - int
+   * @param userId long
+   * @param limit int
+   * @param offset int
    * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id = :userId ORDER BY date_time_posted DESC "
@@ -51,7 +51,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   /**
    * Gets all clips for users in a collection, limited by parameters.
    *
-   * @param users - Collection&ltUser&gt
+   * @param users Collection&ltUser&gt
    * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "
