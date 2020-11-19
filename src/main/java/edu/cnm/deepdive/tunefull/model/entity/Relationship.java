@@ -20,7 +20,6 @@ import org.springframework.lang.NonNull;
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -35,7 +34,8 @@ import org.springframework.lang.NonNull;
 public class Relationship {
 
   /**
-   * Holds an auto-generated id value for identification of the relationship in the TuneFull database.
+   * Holds an auto-generated id value for identification of the relationship in the TuneFull
+   * database.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,7 +51,8 @@ public class Relationship {
   private User requester;
 
   /**
-   * References the {@link User} entity associated with the user who received a relationship request.
+   * References the {@link User} entity associated with the user who received a relationship
+   * request.
    */
   @NonNull
   @ManyToOne
@@ -100,7 +101,8 @@ public class Relationship {
   }
 
   /**
-   * Returns the {@link User} entity associated with the user who received the relationship request.
+   * Returns the {@link User} entity associated with the user who received the relationship
+   * request.
    *
    * @return
    */
@@ -151,6 +153,7 @@ public class Relationship {
   /**
    * Sets the Boolean indicating whether a friend relationship has been accepted, denied, or not yet
    * responded to.
+   *
    * @param friendAccepted - Boolean
    */
   public void setFriendAccepted(Boolean friendAccepted) {

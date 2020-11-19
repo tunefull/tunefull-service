@@ -20,14 +20,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.springframework.lang.NonNull;
-import org.springframework.util.comparator.Comparators;
 
 /**
  * <p>
  * The {@code User} entity holds the data for each user in the TuneFull server and provides methods
  * to access lists of data.
  * </p>
- *
+ * <p>
  * As well as fields of data, and methods to access that data, the {@code User} entity contains the
  * nested enum {@link Genre}, which enumerates a basic list of favorite musical genres for the user
  * to select from.
@@ -35,7 +34,6 @@ import org.springframework.util.comparator.Comparators;
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -84,7 +82,8 @@ public class User implements Comparable<User> {
    * Holds the list of relationships that the user has initiated.
    */
   @NonNull
-  @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+      orphanRemoval = true)
   @OrderBy("requested ASC")
   @JsonIgnore //for now
   private final List<Relationship> relationshipsInitiated = new LinkedList<>();
@@ -93,7 +92,8 @@ public class User implements Comparable<User> {
    * Holds the list of relationships that the user has received requests for.
    */
   @NonNull
-  @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "requested", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+      orphanRemoval = true)
   @OrderBy("requester ASC")
   @JsonIgnore //for now
   private final List<Relationship> relationshipsReceived = new LinkedList<>();
@@ -102,7 +102,8 @@ public class User implements Comparable<User> {
    * Holds the list of clips posted by the user.
    */
   @NonNull
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+      orphanRemoval = true)
   @OrderBy("dateTimePosted DESC")
   @JsonIgnore //for now
   private final List<Clip> clips = new LinkedList<>();
@@ -234,7 +235,8 @@ public class User implements Comparable<User> {
         .filter(Relationship::isFriendRelationship)
         .filter(Relationship::getFriendAccepted)
         .sorted(
-            Comparator.comparing((Relationship relationship) -> relationship.other(this).username))
+            Comparator.comparing((Relationship relationship)
+                -> relationship.other(this).username))
         .collect(Collectors.toList());
   }
 

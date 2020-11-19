@@ -19,14 +19,12 @@ import org.springframework.lang.NonNull;
 
 /**
  * <p>
- * The {@code Clip} entity holds the data for each clip of music shared in the TuneFull
- * server.
+ * The {@code Clip} entity holds the data for each clip of music shared in the TuneFull server.
  * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -53,7 +51,7 @@ public class Clip {
   private String songTitle;
 
   /**
-   * Holds the name of the clip's artist
+   * Holds the name of the clip's artist.
    */
   @NonNull
   @Column(nullable = false, updatable = false)
@@ -102,15 +100,17 @@ public class Clip {
   private User user;
 
   /**
+   * Returns the clip's id.
    *
-   * @return return id
+   * @return
    */
   public Long getId() {
     return id;
   }
 
   /**
-   * Returns songTitle for music clip
+   * Returns the title for the song the clip is from .
+   *
    * @return
    */
   @NonNull
@@ -119,15 +119,17 @@ public class Clip {
   }
 
   /**
-   * Sets songTitle for music clip
-   * @param songTitle- String type
+   * Sets the title for the song the clip is from
+   *
+   * @param songTitle - String
    */
   public void setSongTitle(@NonNull String songTitle) {
     this.songTitle = songTitle;
   }
 
   /**
-   * Returns name of Artist for music clip
+   * Returns the name of the clip's artist
+   *
    * @return
    */
   @NonNull
@@ -136,7 +138,8 @@ public class Clip {
   }
 
   /**
-   * Sets name of Artist for music clip
+   * Sets the name of the clip's artist
+   *
    * @param artist- String type
    */
   public void setArtist(@NonNull String artist) {
@@ -144,7 +147,8 @@ public class Clip {
   }
 
   /**
-   * Returns name of Album for music clip
+   * Returns the name of the clip's album
+   *
    * @return
    */
   public String getAlbum() {
@@ -152,15 +156,17 @@ public class Clip {
   }
 
   /**
-   * Sets name of Album for music clip
-   * @param album- String type
+   * Sets the name of the clip's album
+   *
+   * @param album - String
    */
   public void setAlbum(String album) {
     this.album = album;
   }
 
   /**
-   * Returns unique identifier for the clip
+   * Returns the track key associated with the song on Spotify.
+   *
    * @return
    */
   @NonNull
@@ -169,15 +175,17 @@ public class Clip {
   }
 
   /**
-   * Sets unique identifier for the clip
-   * @param trackKey- String type
+   * Sets the track key associated with the song on Spotify.
+   *
+   * @param trackKey - String
    */
   public void setTrackKey(@NonNull String trackKey) {
     this.trackKey = trackKey;
   }
 
   /**
-   * Returns time that music clip starts
+   * Returns the timestamp for the beginning of the clip
+   *
    * @return
    */
   public int getBeginTimestamp() {
@@ -185,15 +193,17 @@ public class Clip {
   }
 
   /**
-   * Sets time that music clip starts
-   * @param beginTimestamp- int type
+   * Sets the timestamp for the beginning of the clip
+   *
+   * @param beginTimestamp - int
    */
   public void setBeginTimestamp(int beginTimestamp) {
     this.beginTimestamp = beginTimestamp;
   }
 
   /**
-   * Returns time music clip ends
+   * Returns the timestamp for the end of the clip
+   *
    * @return
    */
   public int getEndTimestamp() {
@@ -201,15 +211,17 @@ public class Clip {
   }
 
   /**
-   * Sets time music clip ends
-   * @param endTimestamp- int type
+   * Sets the timestamp for the beginning of the clip
+   *
+   * @param endTimestamp - int
    */
   public void setEndTimestamp(int endTimestamp) {
     this.endTimestamp = endTimestamp;
   }
 
   /**
-   * Returns the date and time of day a clip is posted
+   * Returns the date and time that the clip was posted
+   *
    * @return
    */
   @NonNull
@@ -218,7 +230,8 @@ public class Clip {
   }
 
   /**
-   * Returns User who posted clip
+   * Returns the {@link User} who created the clip
+   *
    * @return
    */
   @NonNull
@@ -227,8 +240,9 @@ public class Clip {
   }
 
   /**
-   * Sets User who posted clip
-   * @param user- User type
+   * Sets the {@link User} who posted the clip
+   *
+   * @param user - {@link User}
    */
   public void setUser(@NonNull User user) {
     this.user = user;
