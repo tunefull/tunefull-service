@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * {@code ClipService} provides a layer between {@link ClipRepository} and {@link
  * edu.cnm.deepdive.tunefull.controller.ClipController} for business logic.
  * </p>
- *
+ * <p>
  * This class also contains a nested enum, which enumerates types of lists of clips that can be
  * returned by methods in this class.
  *
@@ -35,9 +35,9 @@ public class ClipService {
   /**
    * Autowired constructor for {@code ClipService}.
    *
-   * @param clipRepository         - ClipRepository
-   * @param userRepository         - UserRepository
-   * @param relationshipRepository - RelationshipRepository
+   * @param clipRepository         ClipRepository
+   * @param userRepository         UserRepository
+   * @param relationshipRepository RelationshipRepository
    */
   @Autowired
   public ClipService(ClipRepository clipRepository, UserRepository userRepository,
@@ -60,8 +60,8 @@ public class ClipService {
    * controls whether to return all clips, clips from the current user, or clips from the user's
    * friends, follows, or relationships in general.
    *
-   * @param user User
-   * @param limit int
+   * @param user   User
+   * @param limit  int
    * @param offset int
    * @param source Source
    * @return List&ltClips&gt
@@ -104,7 +104,7 @@ public class ClipService {
    * Returns all clips, limited by parameters. Does not require the current user to be
    * authenticated, and so is used in Discovery mode for users who are not logged in.
    *
-   * @param limit int
+   * @param limit  int
    * @param offset int
    * @return List&ltClips&gt
    */
@@ -116,7 +116,7 @@ public class ClipService {
    * Posts a clip.
    *
    * @param clip Clip
-   * @return the clip that was posted
+   * @return Clip
    */
   public Clip post(Clip clip) {
     return clipRepository.save(clip);

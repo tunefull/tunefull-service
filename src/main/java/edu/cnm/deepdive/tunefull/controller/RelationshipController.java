@@ -37,7 +37,7 @@ public class RelationshipController {
    * Autowired constructor for {@code RelationshipController}.
    *
    * @param relationshipService RelationshipService
-   * @param userService UserService
+   * @param userService         UserService
    */
   public RelationshipController(RelationshipService relationshipService, UserService userService) {
     this.relationshipService = relationshipService;
@@ -67,8 +67,8 @@ public class RelationshipController {
   }
 
   /**
-   * Gets all relationships in which the user has received a friend request and hasn't
-   * yet responded.
+   * Gets all relationships in which the user has received a friend request and hasn't yet
+   * responded.
    *
    * @param auth Authentication
    * @return List&ltRelationship&gt
@@ -115,10 +115,10 @@ public class RelationshipController {
   /**
    * Updates a relationship between two users.
    *
-   * @param auth Authentication
+   * @param auth           Authentication
    * @param relationshipId long
-   * @param accepted boolean
-   * @return the updated relationship.
+   * @param accepted       boolean
+   * @return the updated relationship
    */
   @PutMapping(value = "/friendships/{relationshipId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
       MediaType.APPLICATION_JSON_VALUE)

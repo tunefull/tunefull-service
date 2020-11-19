@@ -18,6 +18,11 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 @SpringBootApplication
 public class TunefullApplication {
 
+  /**
+   * The main method of Tunefull Application provides an entry point to run the server.
+   *
+   * @param args String[] of command-line arguments
+   */
   public static void main(String[] args) {
     SpringApplication.run(TunefullApplication.class, args);
   }

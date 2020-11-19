@@ -60,7 +60,7 @@ public class UserController {
    * Gets a selected user.
    *
    * @param userId long
-   * @param auth Authentication
+   * @param auth   Authentication
    * @return Optional&ltUser&gt
    */
   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,8 +72,8 @@ public class UserController {
   /**
    * Gets all users, limited by parameters.
    *
-   * @param auth Authentication
-   * @param limit int
+   * @param auth   Authentication
+   * @param limit  int
    * @param offset int
    * @return List&ltUser&gt
    */
@@ -87,7 +87,7 @@ public class UserController {
   /**
    * Updates the current user's favorite genre.
    *
-   * @param auth Authentication
+   * @param auth  Authentication
    * @param genre Genre enum
    * @return Genre enum
    */

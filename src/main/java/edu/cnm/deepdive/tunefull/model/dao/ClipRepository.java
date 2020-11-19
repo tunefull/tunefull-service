@@ -27,7 +27,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   /**
    * Gets all clips, limited by parameters, for use in Discovery mode.
    *
-   * @param limit int
+   * @param limit  int
    * @param offset int
    * @return List&ltClip&gt
    */
@@ -39,7 +39,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
    * Gets all clips for a particular user, limited by parameters.
    *
    * @param userId long
-   * @param limit int
+   * @param limit  int
    * @param offset int
    * @return List&ltClip&gt
    */
@@ -47,11 +47,12 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
   List<Clip> getAllByUserAndLimitAndOffset(long userId, int limit, int offset);
 
-
   /**
    * Gets all clips for users in a collection, limited by parameters.
    *
    * @param users Collection&ltUser&gt
+   * @param limit int
+   * @param offset int
    * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "

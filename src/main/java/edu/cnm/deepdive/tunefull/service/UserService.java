@@ -34,7 +34,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Autowired constructor for {@code UserService}
    *
-   * @param userRepository UserRepository
+   * @param userRepository         UserRepository
    * @param relationshipRepository RelationshipRepository
    */
   @Autowired
@@ -48,7 +48,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    *
    * @param oauthKey String
    * @param username String
-   * @param email String
+   * @param email    String
    * @return the User that has been found or created
    */
   public User getOrCreate(String oauthKey, String username, String email) {
@@ -102,7 +102,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Updates the user's favorite genre.
    *
-   * @param user User
+   * @param user  User
    * @param genre Genre enum
    * @return Genre enum
    */

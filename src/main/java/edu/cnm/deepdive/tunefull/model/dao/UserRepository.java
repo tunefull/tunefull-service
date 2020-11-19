@@ -31,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   /**
    * Gets all users in the system, ordered by username alphabetically.
    *
-   * @return List&ltUser$gt
+   * @return List&ltUser&gt
    */
   List<User> getAllByOrderByUsernameAsc();
 

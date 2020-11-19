@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.tunefull.service;
 
-import edu.cnm.deepdive.tunefull.model.dao.ClipRepository;
 import edu.cnm.deepdive.tunefull.model.dao.RelationshipRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
@@ -28,7 +27,7 @@ public class RelationshipService {
   /**
    * Autowired constructor for RelationshipService.
    *
-   * @param relationshipRepository - RelationshipRepository
+   * @param relationshipRepository RelationshipRepository
    */
   @Autowired
   public RelationshipService(RelationshipRepository relationshipRepository) {
@@ -140,7 +139,7 @@ public class RelationshipService {
    * Sets the boolean that determines whether a relationship is a friendship or not.
    *
    * @param friendship Relationship
-   * @param accepted boolean
+   * @param accepted   boolean
    * @return the boolean that has been set
    */
   public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {

@@ -50,11 +50,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * Allows for specification of which endpoints need security and which do not (i.e. which endpoints
-   * need the user to be logged in).
+   * Allows for specification of which endpoints need security and which do not (i.e. which
+   * endpoints need the user to be logged in).
    *
    * @param http HttpSecurity
-   * @throws Exception
+   * @throws Exception if something goes wrong.
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -69,7 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * Because the basic spring decoder only validates dates, this bean allows for specialized validation.
+   * Because the basic spring decoder only validates dates, this bean allows for specialized
+   * validation.
    *
    * @return JwtDecoder
    */
