@@ -47,7 +47,7 @@ public class RelationshipController {
   /**
    * Gets all relationships in which the current user is a friend.
    *
-   * @param auth - Authentication
+   * @param auth Authentication
    * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/friendships", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +58,7 @@ public class RelationshipController {
   /**
    * Gets all relationships in which the current user is following another user.
    *
-   * @param auth - Authentication
+   * @param auth Authentication
    * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/follows", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +70,7 @@ public class RelationshipController {
    * Gets all relationships in which the user has received a friend request and hasn't
    * yet responded.
    *
-   * @param auth - Authentication
+   * @param auth Authentication
    * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -82,8 +82,8 @@ public class RelationshipController {
    * Creates a relationship between the current user and another user. This relationship is not yet
    * a friendship, but is a follow and a friend request rolled into one.
    *
-   * @param auth - Authentication
-   * @param user - User
+   * @param auth Authentication
+   * @param user User
    * @return a new relationship between two users.
    */
   @PostMapping(value = "/friendships", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -99,8 +99,8 @@ public class RelationshipController {
   /**
    * Lets the current user start following another user.
    *
-   * @param auth - Authentication
-   * @param user - User
+   * @param auth Authentication
+   * @param user User
    * @return a new relationship following another user
    */
   @PostMapping(value = "/follows", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -115,9 +115,9 @@ public class RelationshipController {
   /**
    * Updates a relationship between two users.
    *
-   * @param auth - Authentication
-   * @param relationshipId - long
-   * @param accepted - boolean
+   * @param auth Authentication
+   * @param relationshipId long
+   * @param accepted boolean
    * @return the updated relationship.
    */
   @PutMapping(value = "/friendships/{relationshipId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =

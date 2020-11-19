@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   /**
    * Constructor for {@code SecurityConfiguration}.
    *
-   * @param userService - UserService
+   * @param userService UserService
    */
   public SecurityConfiguration(UserService userService) {
     this.userService = userService;
@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    * Allows for specification of which endpoints need security and which do not (i.e. which endpoints
    * need the user to be logged in).
    *
-   * @param http - HttpSecurity
+   * @param http HttpSecurity
    * @throws Exception
    */
   @Override

@@ -38,7 +38,7 @@ public class RelationshipService {
   /**
    * Gets the Relationship by its id, if it exists.
    *
-   * @param id - Long
+   * @param id long
    * @return Optional&ltRelationship&gt
    */
   public Optional<Relationship> get(long id) {
@@ -48,7 +48,7 @@ public class RelationshipService {
   /**
    * Gets the Relationship between two users, using the two users as parameters.
    *
-   * @param user - User
+   * @param user User
    * @return List&ltRelationships&gt
    */
   public List<Relationship> getFriendships(User user) {
@@ -59,7 +59,7 @@ public class RelationshipService {
   /**
    * Gets all the Relationships in which the user is following other users
    *
-   * @param user - User
+   * @param user User
    * @return List&ltRelationships&gt
    */
   public List<Relationship> getFollows(User user) {
@@ -70,7 +70,7 @@ public class RelationshipService {
    * Gets all the Relationships in which the user has been sent a friend request and the user has
    * not responded yet.
    *
-   * @param user - User
+   * @param user User
    * @return List&ltRelationships&gt
    */
   public List<Relationship> getPending(User user) {
@@ -80,8 +80,8 @@ public class RelationshipService {
   /**
    * Creates a relationship between two users by sending a friend request.
    *
-   * @param requester - User
-   * @param requested - User
+   * @param requester User
+   * @param requested User
    * @return the relationship that was created
    */
   public Relationship requestFriendship(User requester, User requested) {
@@ -110,8 +110,8 @@ public class RelationshipService {
   /**
    * Creates a relationship between two users in which one is following the other.
    *
-   * @param follower - User
-   * @param followed - User
+   * @param follower User
+   * @param followed User
    * @return the relationship that was created
    */
   public Relationship startFollowing(User follower, User followed) {
@@ -129,7 +129,7 @@ public class RelationshipService {
   /**
    * Saves the relationship to the repository.
    *
-   * @param relationship - Relationship
+   * @param relationship Relationship
    * @return returns the relationship that was saved
    */
   public Relationship save(Relationship relationship) {
@@ -139,8 +139,8 @@ public class RelationshipService {
   /**
    * Sets the boolean that determines whether a relationship is a friendship or not.
    *
-   * @param friendship - Relationship
-   * @param accepted - boolean
+   * @param friendship Relationship
+   * @param accepted boolean
    * @return the boolean that has been set
    */
   public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {

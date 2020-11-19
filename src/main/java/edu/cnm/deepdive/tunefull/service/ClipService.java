@@ -48,7 +48,7 @@ public class ClipService {
   /**
    * Returns a single clip by id.
    *
-   * @param id - long type
+   * @param id long type
    * @return Optional&ltClip&gt
    */
   public Optional<Clip> get(long id) {
@@ -60,10 +60,10 @@ public class ClipService {
    * controls whether to return all clips, clips from the current user, or clips from the user's
    * friends, follows, or relationships in general.
    *
-   * @param user   - User
-   * @param limit  -  int
-   * @param offset - int
-   * @param source - Source
+   * @param user User
+   * @param limit int
+   * @param offset int
+   * @param source Source
    * @return List&ltClips&gt
    */
   public List<Clip> getAllFiltered(User user, int limit, int offset, Source source) {
@@ -104,8 +104,8 @@ public class ClipService {
    * Returns all clips, limited by parameters. Does not require the current user to be
    * authenticated, and so is used in Discovery mode for users who are not logged in.
    *
-   * @param limit  - int
-   * @param offset - int
+   * @param limit int
+   * @param offset int
    * @return List&ltClips&gt
    */
   public List<Clip> getAllForDiscovery(int limit, int offset) {
@@ -115,7 +115,7 @@ public class ClipService {
   /**
    * Posts a clip.
    *
-   * @param clip - Clip
+   * @param clip Clip
    * @return the clip that was posted
    */
   public Clip post(Clip clip) {
@@ -125,7 +125,7 @@ public class ClipService {
   /**
    * Deletes a clip.
    *
-   * @param clip - Clip
+   * @param clip Clip
    */
   public void delete(Clip clip) {
     clipRepository.delete(clip);

@@ -34,8 +34,8 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Autowired constructor for {@code UserService}
    *
-   * @param userRepository - UserRepository
-   * @param relationshipRepository - RelationshipRepository
+   * @param userRepository UserRepository
+   * @param relationshipRepository RelationshipRepository
    */
   @Autowired
   public UserService(UserRepository userRepository, RelationshipRepository relationshipRepository) {
@@ -46,9 +46,9 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Gets the user with the oauth key, or creates the user if one does not exist for this oauth.
    *
-   * @param oauthKey - String
-   * @param username - String
-   * @param email - String
+   * @param oauthKey String
+   * @param username String
+   * @param email String
    * @return the User that has been found or created
    */
   public User getOrCreate(String oauthKey, String username, String email) {
@@ -66,7 +66,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    * Overrides the {@code convert} method to convert a Json web token into a
    * UsernamePasswordAuthenticationToken
    *
-   * @param jwt - Jwt
+   * @param jwt Jwt
    * @return UsernamePasswordAuthenticationToken
    */
   @Override
@@ -83,7 +83,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Finds and returns a single User object by id.
    *
-   * @param id - long
+   * @param id long
    * @return Optional&ltUser&gt
    */
   public Optional<User> get(long id) {
@@ -102,8 +102,8 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Updates the user's favorite genre.
    *
-   * @param user - User
-   * @param genre - Genre enum
+   * @param user User
+   * @param genre Genre enum
    * @return Genre enum
    */
   public Genre updateGenre(User user, Genre genre) {
@@ -114,7 +114,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Deletes the current user.
    *
-   * @param user - User
+   * @param user User
    */
   public void delete(User user) {
     userRepository.delete(user);

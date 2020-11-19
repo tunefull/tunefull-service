@@ -6,12 +6,11 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 
 /**
- * Initialization of springboot server for Tunefull application
+ * Initializes the SpringBoot server for the Tunefull application.
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */

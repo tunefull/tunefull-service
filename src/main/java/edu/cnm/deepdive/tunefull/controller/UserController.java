@@ -48,7 +48,7 @@ public class UserController {
   /**
    * Gets the current user.
    *
-   * @param auth - Authentication
+   * @param auth Authentication
    * @return the current user
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,8 +59,8 @@ public class UserController {
   /**
    * Gets a selected user.
    *
-   * @param userId - long
-   * @param auth   - Authentication
+   * @param userId long
+   * @param auth Authentication
    * @return Optional&ltUser&gt
    */
   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,9 +72,9 @@ public class UserController {
   /**
    * Gets all users, limited by parameters.
    *
-   * @param auth - Authentication
-   * @param limit - int
-   * @param offset - int
+   * @param auth Authentication
+   * @param limit int
+   * @param offset int
    * @return List&ltUser&gt
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -87,8 +87,8 @@ public class UserController {
   /**
    * Updates the current user's favorite genre.
    *
-   * @param auth -Authentication
-   * @param genre - Genre enum
+   * @param auth Authentication
+   * @param genre Genre enum
    * @return Genre enum
    */
   @PutMapping(value = "/me/genre", consumes = MediaType.TEXT_PLAIN_VALUE,
@@ -100,7 +100,7 @@ public class UserController {
   /**
    * Deletes the current user.
    *
-   * @param auth - Authentication
+   * @param auth Authentication
    */
   @DeleteMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth) {

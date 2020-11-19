@@ -39,7 +39,7 @@ public class ClipController {
   /**
    * Autowired constructor for {@code ClipController}.
    *
-   * @param clipService - ClipService
+   * @param clipService ClipService
    */
   @Autowired
   public ClipController(ClipService clipService) {
@@ -51,10 +51,10 @@ public class ClipController {
    * the client to get all clips, only clips by friends, only clips by followers, only clips by
    * users in a relationship with the user, or only clips by the user.
    *
-   * @param auth - Authentication
-   * @param limit - int
-   * @param offset - int
-   * @param source - Source enum
+   * @param auth Authentication
+   * @param limit int
+   * @param offset int
+   * @param source Source enum
    * @return List&ltClip&gt
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,8 +69,8 @@ public class ClipController {
    * Gets all of the most recent clips, limited by parameters. This overload of the {@code getAll}
    * method allows users who have not logged in to access clips used in Discovery mode.
    *
-   * @param limit - int
-   * @param offset - int
+   * @param limit int
+   * @param offset int
    * @return List&ltClip&gt
    */
   @GetMapping(value = "/discovery", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,8 +83,8 @@ public class ClipController {
   /**
    * Gets a selected clip by id.
    *
-   * @param auth - Authentication
-   * @param clipId - long
+   * @param auth Authentication
+   * @param clipId long
    * @return a selected clip
    */
   @GetMapping(value = "/{clipId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -96,8 +96,8 @@ public class ClipController {
   /**
    * Posts a clip for the current user.
    *
-   * @param auth - Authentication
-   * @param clip - Clip
+   * @param auth Authentication
+   * @param clip Clip
    * @return the clip that was posted
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -111,8 +111,8 @@ public class ClipController {
   /**
    * Deletes a clip only if it has been posted by the current user.
    *
-   * @param auth - Authentication
-   * @param clip - Clip
+   * @param auth Authentication
+   * @param clip Clip
    */
   @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth, @RequestBody Clip clip) {
