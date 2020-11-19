@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-//@RequestMapping("/relationships")
 @ExposesResourceFor(Relationship.class)
 public class RelationshipController {
 
@@ -43,7 +42,7 @@ public class RelationshipController {
   }
 
   /**
-   * /relationships/friendships: gets all relationships in which the user is a friend
+   * /friendships: gets all relationships in which the user is a friend
    *
    * @param auth- Authentication type
    * @return list of relationships the user is a friend of
@@ -54,7 +53,7 @@ public class RelationshipController {
   }
 
   /**
-   * /relationships/follows: gets all relationships in which the user is following someone
+   * /follows: gets all relationships in which the user is following someone
    *
    * @param auth- Authentication type
    * @return list of relationships in which the current user is following another user
@@ -65,19 +64,19 @@ public class RelationshipController {
   }
 
   /**
-   * /relationships/unaccepted: gets all relationships in which the user has
+   * /pending: gets all relationships in which the user has
    * received a friend request and hasn't responded yet
    *
    * @param auth- Authentication type
    * @return list of relationships in which the user hasn't responded to yet.
    */
-  @GetMapping(value = "/unaccepted", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myUnacceptedRequests(Authentication auth) {
     return relationshipService.getUnaccepted((User) auth.getPrincipal());
   }
 
   /**
-   * /relationship: send friend request
+   * send friend request
    *
    * @param auth- Authentication type
    * @param user- User type
