@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Clip controller
+ * Clip Controller provides endpoints which allow the client to access data relating to Clips
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
