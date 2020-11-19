@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -72,7 +71,7 @@ public class RelationshipController {
    */
   @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myPendingRequests(Authentication auth) {
-    return relationshipService.getUnaccepted((User) auth.getPrincipal());
+    return relationshipService.getPending((User) auth.getPrincipal());
   }
 
   /**

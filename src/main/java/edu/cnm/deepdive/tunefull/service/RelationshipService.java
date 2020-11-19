@@ -23,27 +23,63 @@ public class RelationshipService {
 
   private final RelationshipRepository relationshipRepository;
 
+  /**
+   *
+   * @param relationshipRepository RelationshipRepository type
+   */
   public RelationshipService(RelationshipRepository relationshipRepository) {
     this.relationshipRepository = relationshipRepository;
   }
 
+  /**
+   * Gets the Relationship by the id if it exists.
+   *
+   * @param id Long type
+   * @return
+   */
   public Optional<Relationship> get(long id) {
     return relationshipRepository.findById(id);
   }
 
+  /**
+   * Gets the Relationship between two users by the two users.
+   *
+   * @param user User type
+   * @return
+   */
   public List<Relationship> getFriendships(User user) {
     return relationshipRepository
         .getAllByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue(user, user);
   }
 
+  /**
+   * Gets all the Relationships in which the user is following other users
+   *
+   * @param user User Type
+   * @return
+   */
   public List<Relationship> getFollows(User user) {
     return relationshipRepository.getAllByRequesterAndFriendRelationshipFalse(user);
   }
 
-  public List<Relationship> getUnaccepted(User user) {
+  /**
+   * Gets all the Relationships in which the user has been sent a friend request and the user
+   * has not responded to yet.
+   *
+   * @param user User type
+   * @return
+   */
+  public List<Relationship> getPending(User user) {
     return relationshipRepository.getAllByRequestedAndFriendAcceptedNull(user);
   }
 
+  /**
+   * Creates a relationship between two users in which a friend request has been sent.
+   *
+   * @param requester User Type
+   * @param requested User Type
+   * @return
+   */
   public Relationship requestFriendship(User requester, User requested) {
     // TODO figure out what to do if there is a pending friend request the other way - should automatically create the friendship
     return relationshipRepository.findFirstByRequesterAndRequested(requester, requested)
@@ -67,6 +103,13 @@ public class RelationshipService {
         });
   }
 
+  /**
+   * Creates a relationship between two users in which one is following the other
+   *
+   * @param follower User Type
+   * @param followed User Type
+   * @return
+   */
   public Relationship startFollowing(User follower, User followed) {
     return relationshipRepository.findFirstByRequesterAndRequested(follower, followed)
         .orElseGet(() -> {
@@ -79,10 +122,23 @@ public class RelationshipService {
         });
   }
 
+  /**
+   * Saves the relationship to the repository
+   *
+   * @param relationship Relationship Type
+   * @return
+   */
   public Relationship save(Relationship relationship) {
     return relationshipRepository.save(relationship);
   }
 
+  /**
+   * Sets the boolean that determines whether a relationship is a friendship or not.
+   *
+   * @param friendship Relationship type
+   * @param accepted boolean
+   * @return
+   */
   public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {
     friendship.setFriendAccepted(accepted);
     relationshipRepository.save(friendship);
