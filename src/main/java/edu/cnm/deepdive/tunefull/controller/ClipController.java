@@ -1,13 +1,11 @@
 package edu.cnm.deepdive.tunefull.controller;
 
-import edu.cnm.deepdive.tunefull.model.dao.ClipRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Clip;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import edu.cnm.deepdive.tunefull.service.ClipService;
 import edu.cnm.deepdive.tunefull.service.ClipService.Source;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -22,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Clip Controller provides endpoints which allow the client to access data relating to Clips
+ * {@code ClipController} provides endpoints which allow the client to access data relating to
+ * {@link Clip}.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -39,25 +37,26 @@ public class ClipController {
   private final ClipService clipService;
 
   /**
+   * Autowired constructor for {@code ClipController}.
    *
-   * @param clipService- ClipService type
+   * @param clipService - ClipService
    */
   @Autowired
   public ClipController(ClipService clipService) {
     this.clipService = clipService;
   }
 
-
   /**
+   * Returns all of the most recent clips, limited by parameters. The source parameter allows for
+   * the client to get all clips, only clips by friends, only clips by followers, only clips by
+   * users in a relationship with the user, or only clips by the user.
    *
-   * clips: returns all of the most recent clips OR only clips by friends OR only clips by followers
-   * OR only clips by relationships with the user OR only clips by the user
-   * @param auth- User type
-   * @param limit- User type
-   * @param offset- User type
-   * @param source- User type
-   * @return returns clipService
-   * */
+   * @param auth - Authentication
+   * @param limit - int
+   * @param offset - int
+   * @param source - Source enum
+   * @return List&ltClip&gt
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(Authentication auth,
       @RequestParam(required = false, defaultValue = "10") int limit,
@@ -67,10 +66,12 @@ public class ClipController {
   }
 
   /**
+   * Gets all of the most recent clips, limited by parameters. This overload of the {@code getAll}
+   * method allows users who have not logged in to access clips used in Discovery mode.
    *
-   * @param limit- int type
-   * @param offset- int type
-   * @return returns clips for discovery (no auth needed)
+   * @param limit - int
+   * @param offset - int
+   * @return List&ltClip&gt
    */
   @GetMapping(value = "/discovery", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(
@@ -80,12 +81,12 @@ public class ClipController {
   }
 
   /**
-   * /clips/clipId: returns a selected clip
+   * Gets a selected clip by id.
    *
-   * @param auth- Authentication type
-   * @param clipId- long type
-   * @return returns a selected clip
-   * */
+   * @param auth - Authentication
+   * @param clipId - long
+   * @return a selected clip
+   */
   @GetMapping(value = "/{clipId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip get(Authentication auth, @PathVariable long clipId) {
     return clipService.get(clipId)
@@ -93,12 +94,12 @@ public class ClipController {
   }
 
   /**
-   * /clips: posts a clip for the current user
+   * Posts a clip for the current user.
    *
-   * @param auth- Authentication type
-   * @param clip- Clip type
-   * @return returns posted clip for current user
-   * */
+   * @param auth - Authentication
+   * @param clip - Clip
+   * @return the clip that was posted
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip post(Authentication auth, @RequestBody Clip clip) {
@@ -108,11 +109,11 @@ public class ClipController {
   }
 
   /**
-   * deletes a clip only if it has been posted by the current user
+   * Deletes a clip only if it has been posted by the current user.
    *
-   * @param auth- Authentication type
-   * @param clip- Clip type
-   * */
+   * @param auth - Authentication
+   * @param clip - Clip
+   */
   @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth, @RequestBody Clip clip) {
     if (clip.getUser() == auth.getPrincipal()) {

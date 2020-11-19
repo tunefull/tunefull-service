@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Relationship controller provides endpoints to determine and update the relationship between users.
+ * {@code RelationshipController} provides endpoints which allow the client to access data relating
+ * to {@link Relationship}.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -33,18 +33,22 @@ public class RelationshipController {
   private final RelationshipService relationshipService;
   private final UserService userService;
 
-  public RelationshipController(
-      RelationshipService relationshipService,
-      UserService userService) {
+  /**
+   * Autowired constructor for {@code RelationshipController}.
+   *
+   * @param relationshipService
+   * @param userService
+   */
+  public RelationshipController(RelationshipService relationshipService, UserService userService) {
     this.relationshipService = relationshipService;
     this.userService = userService;
   }
 
   /**
-   * /friendships: gets all relationships in which the user is a friend
+   * Gets all relationships in which the current user is a friend.
    *
-   * @param auth- Authentication type
-   * @return list of relationships the user is a friend of
+   * @param auth - Authentication
+   * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/friendships", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFriends(Authentication auth) {
@@ -52,10 +56,10 @@ public class RelationshipController {
   }
 
   /**
-   * /follows: gets all relationships in which the user is following someone
+   * Gets all relationships in which the current user is following another user.
    *
-   * @param auth- Authentication type
-   * @return list of relationships in which the current user is following another user
+   * @param auth - Authentication
+   * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/follows", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFollows(Authentication auth) {
@@ -63,11 +67,11 @@ public class RelationshipController {
   }
 
   /**
-   * /pending: gets all relationships in which the user has
-   * received a friend request and hasn't responded yet
+   * Gets all relationships in which the user has received a friend request and hasn't
+   * yet responded.
    *
-   * @param auth- Authentication type
-   * @return list of relationships in which the user hasn't responded to yet.
+   * @param auth - Authentication
+   * @return List&ltRelationship&gt
    */
   @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myPendingRequests(Authentication auth) {
@@ -75,27 +79,29 @@ public class RelationshipController {
   }
 
   /**
-   * send friend request
+   * Creates a relationship between the current user and another user. This relationship is not yet
+   * a friendship, but is a follow and a friend request rolled into one.
    *
-   * @param auth- Authentication type
-   * @param user- User type
-   * @return A new relationship between two users
+   * @param auth - Authentication
+   * @param user - User
+   * @return a new relationship between two users.
    */
   @PostMapping(value = "/friendships", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Relationship requestFriendship(Authentication auth,
       @RequestBody User user) {
     return userService.get(user.getId())
-        .map((requested) -> relationshipService.requestFriendship((User) auth.getPrincipal(), requested))
+        .map((requested) -> relationshipService
+            .requestFriendship((User) auth.getPrincipal(), requested))
         .orElseThrow(NoSuchElementException::new);
   }
 
   /**
-   * /relationships: start following another user
+   * Lets the current user start following another user.
    *
-   * @param auth- Authentication type
-   * @param user- User type
-   * @return A relationship following another user
+   * @param auth - Authentication
+   * @param user - User
+   * @return a new relationship following another user
    */
   @PostMapping(value = "/follows", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -107,12 +113,12 @@ public class RelationshipController {
   }
 
   /**
-   * /relationships: updates a relationship between two users
+   * Updates a relationship between two users.
    *
-   * @param auth- Authentication type
-   * @param relationshipId- long type
-   * @param accepted- boolean type
-   * @return A relationship between two friends.
+   * @param auth - Authentication
+   * @param relationshipId - long
+   * @param accepted - boolean
+   * @return the updated relationship.
    */
   @PutMapping(value = "/friendships/{relationshipId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
       MediaType.APPLICATION_JSON_VALUE)

@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * User Controller provides endpoints which allow the client to access data relating to User
+ * {@code UserController} provides endpoints which allow the client to access data relating to
+ * {@link User}.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
  * @author Laura Steiner
- *
  * @version 1.0
  * @since 1.0
  */
@@ -36,8 +36,9 @@ public class UserController {
   private final UserService userService;
 
   /**
+   * Autowired constructor for {@code UserController}.
    *
-   * @param userService- UserService type
+   * @param userService - UserService
    */
   @Autowired
   public UserController(UserService userService) {
@@ -45,37 +46,37 @@ public class UserController {
   }
 
   /**
-   * /users/me: gets the current user
+   * Gets the current user.
    *
-   * @param auth- Authentication type
-   * @return returns the current user
-   * */
+   * @param auth - Authentication
+   * @return the current user
+   */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public User me(Authentication auth) {
     return (User) auth.getPrincipal();
   }
 
   /**
-   * /users/userId: gets a selected user
+   * Gets a selected user.
    *
-   * @param userId- Long type
-   * @param auth- Authentication type
-   * @return returns userService to get a selected user
-   * */
+   * @param userId - long
+   * @param auth   - Authentication
+   * @return Optional&ltUser&gt
+   */
   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Optional<User> get(@PathVariable Long userId, Authentication auth) {
+  public Optional<User> get(@PathVariable long userId, Authentication auth) {
     // TODO investigate returning limited information if this isn't the current user
     return userService.get(userId);
   }
 
   /**
-   * /users: gets all users, up to a specified number (or default all)
+   * Gets all users, limited by parameters.
    *
-   * @param auth- Authentication type
-   * @param limit- int type
-   * @param offset- int type
-   * @return returns userService to get all users
-   * */
+   * @param auth - Authentication
+   * @param limit - int
+   * @param offset - int
+   * @return List&ltUser&gt
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public List<User> getAll(Authentication auth,
       @RequestParam(required = false, defaultValue = "40") int limit,
@@ -84,12 +85,12 @@ public class UserController {
   }
 
   /**
-   * /users/me/genre: updates the current user's genre
+   * Updates the current user's favorite genre.
    *
-   * @param auth- Authentication type
-   * @param genre- Enum type
-   * @return userService to update user's genre
-   * */
+   * @param auth -Authentication
+   * @param genre - Genre enum
+   * @return Genre enum
+   */
   @PutMapping(value = "/me/genre", consumes = MediaType.TEXT_PLAIN_VALUE,
       produces = MediaType.TEXT_PLAIN_VALUE)
   public Genre updateGenre(Authentication auth, @RequestBody Genre genre) {
@@ -97,10 +98,10 @@ public class UserController {
   }
 
   /**
-   * /me: deletes the current user
+   * Deletes the current user.
    *
-   * @param auth- Authentication type
-   * */
+   * @param auth - Authentication
+   */
   @DeleteMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth) {
     userService.delete((User) auth.getPrincipal());

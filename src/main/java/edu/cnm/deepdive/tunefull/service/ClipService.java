@@ -86,8 +86,7 @@ public class ClipService {
                 .map((relationship) -> relationship.other(user))
                 .collect(Collectors.toList()),
             limit,
-            offset
-        );
+            offset);
       default:
         return null;
     }
