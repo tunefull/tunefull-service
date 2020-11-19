@@ -106,9 +106,7 @@ public class ClipController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip post(Authentication auth, @RequestBody Clip clip) {
-    if (clip.getUser() != auth.getPrincipal()) {
-      throw new IllegalArgumentException();
-    }
+    clip.setUser((User) auth.getPrincipal());
     return clipService.post(clip);
   }
 
