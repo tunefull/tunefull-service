@@ -64,7 +64,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   }
 
   public List<User> getAll() {
-    return userRepository.getAllByOrderByUsername();
+    return userRepository.getAllByOrderByUsernameAsc();
   }
 
   public Genre updateGenre(User user, Genre genre) {

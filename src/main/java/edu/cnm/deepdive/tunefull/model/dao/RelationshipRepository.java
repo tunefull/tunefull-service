@@ -7,65 +7,75 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * <p> RelationshipRepository holds data for relationship, with the following methods;
- * getRelationshipsByRequesterAndFriendRelationshipTrue, getRelationshipsByRequestedAndFriendRelationshipTrue,
- * getRelationshipsByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue,
- * getRelationshipsByRequesterAndFriendRelationshipFalse, getRelationshipsByRequestedAndFriendAcceptedNull.
+ * <p>
+ * {@code RelationshipRepository} holds data for {@link Relationship}. Aside from the CRUD methods
+ * provided by the extension of JpaRepository, {@code getAllByRequesterAndFriendRelationshipTrue},
+ * {@code getAllByRequestedAndFriendRelationshipTrue}, {@code getAllByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue}
+ * {@code getAllByRequesterAndFriendRelationshipFalse}, {@code getAllByRequestedAndFriendAcceptedNull},
+ * and {@code findFirstByRequesterAndRequested} provide for certain queries of the database.
  * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
+ * @version 1.0
+ * @since 1.0
  */
 
 public interface RelationshipRepository extends JpaRepository<Relationship, Long> {
 
   /**
-   * The following two would have to be combined, as in line 20?? Gets all friendships for a
-   * particular requester, in no particular order
+   * Gets all friendships for a particular requester.
    *
-   * @param requester- User type
-   * @return list of Relationship
+   * @param requester - User
+   * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipTrue(User requester);
 
   /**
-   * Gets all accepted friendships for a particular requested, in no particular order
+   * Gets all friendships for a particular requested.
    *
-   * @param requested- User type
-   * @return list of Relationship
+   * @param requested - User
+   * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequestedAndFriendRelationshipTrue(User requested);
 
   /**
-   * Gets all accepted friendships for a particular user - requester and requested should be the
-   * same id in this case, just passed in twice
+   * Gets all friendships for a particular user - the same {@link User} should be used for both
+   * requester and requested.
    *
-   * @param requester- User type
-   * @param requested- User type
-   * @return list of relationship
+   * @param requester - User
+   * @param requested - User
+   * @return List&ltRelationship&gt
    */
   List<Relationship>
-  getAllByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue(
-      User requester, User requested);
+  getAllByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue(User requester,
+      User requested);
 
   /**
-   * Gets all follows for a particular user/requester
+   * Gets all follows for a particular user.
    *
-   * @param requester- User type
-   * @return list of relationship
+   * @param requester - User
+   * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipFalse(User requester);
 
   /**
-   * Gets all unaccepted friendships for a particular requested (i.e., requests that that user
-   * hasn't responded to yet).
+   * Gets all pending friendships for a particular user (i.e., requests that that user hasn't
+   * responded to yet).
    *
-   * @param requested- User type
-   * @return list of Relationship
+   * @param requested - User
+   * @return List&ltRelationship&gt
    */
   List<Relationship> getAllByRequestedAndFriendAcceptedNull(User requested);
 
+  /**
+   * Gets a relationship given its two users.
+   *
+   * @param requester - User
+   * @param requested - User
+   * @return Optional&ltRelationship&gt
+   */
   Optional<Relationship> findFirstByRequesterAndRequested(User requester, User requested);
 
 }

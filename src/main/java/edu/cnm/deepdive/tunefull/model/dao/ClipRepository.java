@@ -9,34 +9,39 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  * <p>
- * Clip repository holds data for Clips with the following methods; findClipByID,
- * getClipsByUserIsNotNullOrderByDateTimePostedDesc, getClipsByUserIdOrderByDateTimePostedDesc
- * getClipsByUserIsInOrderByDateTimePostedDesc
+ * {@code ClipRepository} holds data for {@link Clip}. Aside from the CRUD methods provided by the
+ * extension of JpaRepository, {@code getAllByLimitAndOffset}, {@code
+ * getAllByUserAndLimitAndOffset}, and {@code getAllByUserIsInOrderByDateTimePostedDesc} provide for
+ * certain queries of the database.
  * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
+ * @version 1.0
+ * @since 1.0
  */
 @SuppressWarnings("SqlResolve")
 public interface ClipRepository extends JpaRepository<Clip, Long> {
 
   /**
-   * this gets all clips for Discovery DERBY-specific
+   * Gets all clips, limited by parameters, for use in Discovery mode.
    *
-   * @param limit-  int value used in query
-   * @param offset- int value used in query
-   * @return List of clips
+   * @param limit  -  int
+   * @param offset - int
+   * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
   List<Clip> getAllByLimitAndOffset(int limit, int offset);
 
   /**
-   * @param userId- long value used in query
-   * @param limit-  int value used in query
-   * @param offset- int value used in query
-   * @return list of clips
+   * Gets all clips for a particular user, limited by parameters.
+   *
+   * @param userId - long
+   * @param limit  -  int
+   * @param offset - int
+   * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id = :userId ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
@@ -44,10 +49,10 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
 
 
   /**
-   * or maybe that would be something like this:
+   * Gets all clips for users in a collection, limited by parameters.
    *
-   * @param users- collection of User class
-   * @return list of clips
+   * @param users - Collection&ltUser&gt
+   * @return List&ltClip&gt
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)

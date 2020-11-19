@@ -7,29 +7,32 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * <p>
- * User repository holds data for User with the following two methods, getUserByOauth and
- * getUsersByOauthExistsOrderByUserName. This extends Jpa repository.
+ * {@code UserRepository} holds data for {@link User}. Aside from the CRUD methods provided by the
+ * extension of JpaRepository, {@code findFirstByOauth} and {@code getAllOrderByUsername} provide
+ * for certain queries of the database.
  * </p>
  *
  * @author Robert Dominguez
  * @author Roderick Frechette
  * @author Laura Steiner
+ * @version 1.0
+ * @since 1.0
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
   /**
-   * Gets a single user based on the oauth key
+   * Gets a single user based on the oauth key.
    *
-   * @param oauth- String value
-   * @return Optional User
+   * @param oauth - String
+   * @return Optional&ltUser&gt
    */
   Optional<User> findFirstByOauth(String oauth);
 
   /**
-   * Gets all users in the system, ordered by username
+   * Gets all users in the system, ordered by username alphabetically.
    *
-   * @return list users
+   * @return List&ltUser$gt
    */
-  List<User> getAllByOrderByUsername();
+  List<User> getAllByOrderByUsernameAsc();
 
 }
