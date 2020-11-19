@@ -71,7 +71,7 @@ public class RelationshipController {
    * @return list of relationships in which the user hasn't responded to yet.
    */
   @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Relationship> myUnacceptedRequests(Authentication auth) {
+  public List<Relationship> myPendingRequests(Authentication auth) {
     return relationshipService.getUnaccepted((User) auth.getPrincipal());
   }
 
@@ -82,7 +82,7 @@ public class RelationshipController {
    * @param user- User type
    * @return A new relationship between two users
    */
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = "/friendships", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Relationship requestFriendship(Authentication auth,
       @RequestBody User user) {
