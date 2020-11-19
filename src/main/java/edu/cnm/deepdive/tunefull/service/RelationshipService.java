@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * Relationship Service responds to Relationship Controller
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -35,7 +35,7 @@ public class RelationshipService {
    * Gets the Relationship by the id if it exists.
    *
    * @param id Long type
-   * @return
+   * @return Returns Optional Relationship
    */
   public Optional<Relationship> get(long id) {
     return relationshipRepository.findById(id);
@@ -45,7 +45,7 @@ public class RelationshipService {
    * Gets the Relationship between two users by the two users.
    *
    * @param user User type
-   * @return
+   * @return Returns List of Relationships
    */
   public List<Relationship> getFriendships(User user) {
     return relationshipRepository
@@ -56,7 +56,7 @@ public class RelationshipService {
    * Gets all the Relationships in which the user is following other users
    *
    * @param user User Type
-   * @return
+   * @return Returns List of Relationships
    */
   public List<Relationship> getFollows(User user) {
     return relationshipRepository.getAllByRequesterAndFriendRelationshipFalse(user);
@@ -67,7 +67,7 @@ public class RelationshipService {
    * has not responded to yet.
    *
    * @param user User type
-   * @return
+   * @return Returns List of Relationships
    */
   public List<Relationship> getPending(User user) {
     return relationshipRepository.getAllByRequestedAndFriendAcceptedNull(user);
@@ -78,7 +78,7 @@ public class RelationshipService {
    *
    * @param requester User Type
    * @param requested User Type
-   * @return
+   * @return Returns List of Relationships
    */
   public Relationship requestFriendship(User requester, User requested) {
     // TODO figure out what to do if there is a pending friend request the other way - should automatically create the friendship
@@ -108,7 +108,7 @@ public class RelationshipService {
    *
    * @param follower User Type
    * @param followed User Type
-   * @return
+   * @return Returns Relationship
    */
   public Relationship startFollowing(User follower, User followed) {
     return relationshipRepository.findFirstByRequesterAndRequested(follower, followed)
@@ -126,7 +126,7 @@ public class RelationshipService {
    * Saves the relationship to the repository
    *
    * @param relationship Relationship Type
-   * @return
+   * @return Returns Relationship
    */
   public Relationship save(Relationship relationship) {
     return relationshipRepository.save(relationship);
@@ -137,7 +137,7 @@ public class RelationshipService {
    *
    * @param friendship Relationship type
    * @param accepted boolean
-   * @return
+   * @return Returns boolean
    */
   public boolean setFriendshipAccepted(Relationship friendship, boolean accepted) {
     friendship.setFriendAccepted(accepted);

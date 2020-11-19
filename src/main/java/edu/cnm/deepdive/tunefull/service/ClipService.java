@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * Clip Service responds to Clip Controller
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -44,7 +44,7 @@ public class ClipService {
   /**
    *
    * @param id- long type
-   * @return
+   * @return Returns Optional clip
    */
   public Optional<Clip> get(long id) {
     return clipRepository.findById(id);
@@ -56,7 +56,7 @@ public class ClipService {
    * @param limit- int type
    * @param offset- int type
    * @param source- Source type
-   * @return
+   * @return Returns List of Clips
    */
   public List<Clip> getAllFiltered(User user, int limit, int offset, Source source) {
     switch (source) {
@@ -97,7 +97,7 @@ public class ClipService {
    *
    * @param limit- int type
    * @param offset- int type
-   * @return
+   * @return Returns List of Clips
    */
   public List<Clip> getAllForDiscovery(int limit, int offset) {
     return clipRepository.getAllByLimitAndOffset(limit, offset);
@@ -106,7 +106,7 @@ public class ClipService {
   /**
    *
    * @param clip- Clip type
-   * @return
+   * @return Returns Clip
    */
   public Clip post(Clip clip) {
     return clipRepository.save(clip);

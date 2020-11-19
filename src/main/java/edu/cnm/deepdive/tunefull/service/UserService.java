@@ -15,7 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * User Service responds to User Controller
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -47,7 +47,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    * @param oauthKey- String type
    * @param username- String type
    * @param email- String type
-   * @return
+   * @return Returns User
    */
   public User getOrCreate(String oauthKey, String username, String email) {
     return userRepository.findFirstByOauth(oauthKey)
@@ -63,7 +63,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    *
    * @param jwt- Jwt type
-   * @return
+   * @return Returns UsernamePasswordAuthenticationToken
    */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
@@ -79,7 +79,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    *
    * @param id- long type
-   * @return
+   * @return Returns Optional User
    */
   public Optional<User> get(long id) {
     return userRepository.findById(id);
@@ -87,7 +87,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
 
   /**
    *
-   * @return
+   * @return Returns List of User
    */
   public List<User> getAll() {
     return userRepository.getAllByOrderByUsernameAsc();
@@ -97,7 +97,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    *
    * @param user- User type
    * @param genre- Genre type
-   * @return
+   * @return Returns Genre
    */
   public Genre updateGenre(User user, Genre genre) {
     user.setGenre(genre);

@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 /**
- * User entity holds the data model for User data and functions in the TuneFull server.
+ * Provides security functions for the TuneFull Application.
  *
  * @author Robert Dominugez
  * @author Roderick Frechette
@@ -39,12 +39,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
   private String clientId;
 
+  /**
+   *
+   * @param userService- UserService type
+   */
   public SecurityConfiguration(UserService userService) {
     this.userService = userService;
   }
 
-  //allows us to specify which endpoints need security (i.e. which ones need
-  // you to be logged in - so not discover)
+  /**
+   * allows us to specify which endpoints need security (i.e. which ones need
+   * you to be logged in - so not discover)
+   *
+   * @param http- HttpSecurity type
+   * @throws Exception
+   *
+   * */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -58,8 +68,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .jwtAuthenticationConverter(userService);
   }
 
-  //basic spring decoder only validates dates, so to get more validation we
-  //need to create our own
+  /**
+   * basic spring decoder only validates dates, so to get more validation we
+   * need to create our own
+   *
+   * @return Returns JwtDecoder
+   * */
   @Bean
   public JwtDecoder jwtDecoder() {
     NimbusJwtDecoder decoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);
