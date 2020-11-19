@@ -38,7 +38,7 @@ public class UserController {
   /**
    * Autowired constructor for {@code UserController}.
    *
-   * @param userService - UserService
+   * @param userService UserService
    */
   @Autowired
   public UserController(UserService userService) {

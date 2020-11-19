@@ -36,8 +36,8 @@ public class RelationshipController {
   /**
    * Autowired constructor for {@code RelationshipController}.
    *
-   * @param relationshipService
-   * @param userService
+   * @param relationshipService RelationshipService
+   * @param userService UserService
    */
   public RelationshipController(RelationshipService relationshipService, UserService userService) {
     this.relationshipService = relationshipService;
