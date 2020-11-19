@@ -4,9 +4,11 @@ import edu.cnm.deepdive.tunefull.model.entity.User;
 import edu.cnm.deepdive.tunefull.model.entity.User.Genre;
 import edu.cnm.deepdive.tunefull.service.UserService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -61,12 +64,13 @@ public class UserController {
    *
    * @param userId long
    * @param auth   Authentication
-   * @return Optional&ltUser&gt
+   * @return User
    */
   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Optional<User> get(@PathVariable long userId, Authentication auth) {
+  public User get(@PathVariable long userId, Authentication auth) {
     // TODO investigate returning limited information if this isn't the current user
-    return userService.get(userId);
+    return userService.get(userId)
+        .orElseThrow(NoSuchElementException::new);
   }
 
   /**
@@ -102,6 +106,7 @@ public class UserController {
    *
    * @param auth Authentication
    */
+  @ResponseStatus(value = HttpStatus.NO_CONTENT)
   @DeleteMapping(value = "/me", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth) {
     userService.delete((User) auth.getPrincipal());

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -100,12 +102,14 @@ public class ClipController {
    * @param clip Clip
    * @return the clip that was posted
    */
+  @ResponseStatus(value = HttpStatus.CREATED)
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public Clip post(Authentication auth, @RequestBody Clip clip) {
-    return (clip.getUser() == auth.getPrincipal())
-        ? clipService.post(clip)
-        : null;
+    if (clip.getUser() != auth.getPrincipal()) {
+      throw new IllegalArgumentException();
+    }
+    return clipService.post(clip);
   }
 
   /**
@@ -114,10 +118,12 @@ public class ClipController {
    * @param auth Authentication
    * @param clip Clip
    */
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public void delete(Authentication auth, @RequestBody Clip clip) {
-    if (clip.getUser() == auth.getPrincipal()) {
-      clipService.delete(clip);
+    if (clip.getUser() != auth.getPrincipal()) {
+      throw new IllegalArgumentException();
     }
+    clipService.delete(clip);
   }
 }

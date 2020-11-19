@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorConfiguration {
 
-  // TODO get help with this
   /**
    * Changes {@code NoSuchElementException} into a {@code 404 Not Found} response.
    */
@@ -35,30 +34,5 @@ public class ErrorConfiguration {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Empty request body or invalid information")
   public void badRequest() {
   }
-
-  // also needs a valid Location header and EntityLinks? How do these remaining three get set up? And
-  // is 200 OK the default response or do I need to set that up too.
-  /**
-   *  Returns a {@code 201 Created} response.
-   */
-  @ResponseStatus(value = HttpStatus.CREATED)
-  public void created() {
-  }
-
-  /**
-   * Returns a {@code 204 No Content} response.
-   */
-  @ResponseStatus(value = HttpStatus.NO_CONTENT)
-  public void deleted() {
-  }
-
-  /**
-   * Returns a {@code 204 No Content} response.
-   */
-  @ResponseStatus(value = HttpStatus.NO_CONTENT)
-  public void noContent() {
-  }
-
-
 
 }
