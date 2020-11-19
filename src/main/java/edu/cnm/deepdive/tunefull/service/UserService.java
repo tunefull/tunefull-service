@@ -30,6 +30,11 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   private final UserRepository userRepository;
   private final RelationshipRepository relationshipRepository;
 
+  /**
+   *
+   * @param userRepository- UserRepository type
+   * @param relationshipRepository- RelationshipRepository type
+   */
   @Autowired
   public UserService(UserRepository userRepository,
       RelationshipRepository relationshipRepository) {
@@ -37,6 +42,13 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
     this.relationshipRepository = relationshipRepository;
   }
 
+  /**
+   *
+   * @param oauthKey- String type
+   * @param username- String type
+   * @param email- String type
+   * @return
+   */
   public User getOrCreate(String oauthKey, String username, String email) {
     return userRepository.findFirstByOauth(oauthKey)
         .orElseGet(() -> {
@@ -48,6 +60,11 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
         });
   }
 
+  /**
+   *
+   * @param jwt- Jwt type
+   * @return
+   */
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
     Collection<SimpleGrantedAuthority> grants =
@@ -59,19 +76,38 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
     );
   }
 
+  /**
+   *
+   * @param id- long type
+   * @return
+   */
   public Optional<User> get(long id) {
     return userRepository.findById(id);
   }
 
+  /**
+   *
+   * @return
+   */
   public List<User> getAll() {
     return userRepository.getAllByOrderByUsernameAsc();
   }
 
+  /**
+   *
+   * @param user- User type
+   * @param genre- Genre type
+   * @return
+   */
   public Genre updateGenre(User user, Genre genre) {
     user.setGenre(genre);
     return userRepository.save(user).getGenre();
   }
 
+  /**
+   *
+   * @param user- User type
+   */
   public void delete(User user) {
     userRepository.delete(user);
   }

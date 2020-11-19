@@ -29,16 +29,35 @@ public class ClipService {
 
   private final ClipRepository clipRepository;
 
+  /**
+   *
+   * @param clipRepository- ClipRepository type
+   * @param userRepository- UserRepository type
+   * @param relationshipRepository- RelationshipRepository type
+   */
   @Autowired
   public ClipService(ClipRepository clipRepository, UserRepository userRepository,
       RelationshipRepository relationshipRepository) {
     this.clipRepository = clipRepository;
   }
 
+  /**
+   *
+   * @param id- long type
+   * @return
+   */
   public Optional<Clip> get(long id) {
     return clipRepository.findById(id);
   }
 
+  /**
+   *
+   * @param user- User type
+   * @param limit- int type
+   * @param offset- int type
+   * @param source- Source type
+   * @return
+   */
   public List<Clip> getAllFiltered(User user, int limit, int offset, Source source) {
     switch (source) {
       case ALL:
@@ -74,18 +93,36 @@ public class ClipService {
     }
   }
 
+  /**
+   *
+   * @param limit- int type
+   * @param offset- int type
+   * @return
+   */
   public List<Clip> getAllForDiscovery(int limit, int offset) {
     return clipRepository.getAllByLimitAndOffset(limit, offset);
   }
 
+  /**
+   *
+   * @param clip- Clip type
+   * @return
+   */
   public Clip post(Clip clip) {
     return clipRepository.save(clip);
   }
 
+  /**
+   *
+   * @param clip- Clip type
+   */
   public void delete(Clip clip) {
     clipRepository.delete(clip);
   }
 
+  /**
+   *
+   */
   public enum Source {
     ME, FRIENDS, FOLLOWING, RELATIONSHIPS, ALL
   }

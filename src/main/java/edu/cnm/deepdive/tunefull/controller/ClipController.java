@@ -38,6 +38,10 @@ public class ClipController {
 
   private final ClipService clipService;
 
+  /**
+   *
+   * @param clipService- ClipService type
+   */
   @Autowired
   public ClipController(ClipService clipService) {
     this.clipService = clipService;
