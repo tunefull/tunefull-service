@@ -73,13 +73,15 @@ public class Clip {
   /**
    * Holds the timestamp for the beginning of the clip.
    */
-  @Column(updatable = false)
+  @NonNull
+  @Column(updatable = false, nullable = false)
   private int beginTimestamp;
 
   /**
    * Holds the timestamp for the end of the clip.
    */
-  @Column(updatable = false)
+  @NonNull
+  @Column(updatable = false, nullable = false)
   private int endTimestamp;
 
   /**
