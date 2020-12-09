@@ -50,7 +50,7 @@ public class RelationshipController {
    * Gets all relationships in which the current user is a friend.
    *
    * @param auth Authentication
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   @GetMapping(value = "/friendships", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFriends(Authentication auth) {
@@ -61,7 +61,7 @@ public class RelationshipController {
    * Gets all relationships in which the current user is following another user.
    *
    * @param auth Authentication
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   @GetMapping(value = "/follows", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myFollows(Authentication auth) {
@@ -73,7 +73,7 @@ public class RelationshipController {
    * responded.
    *
    * @param auth Authentication
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   @GetMapping(value = "/pending", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Relationship> myPendingRequests(Authentication auth) {

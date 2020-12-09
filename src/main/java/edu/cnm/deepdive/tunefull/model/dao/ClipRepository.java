@@ -29,7 +29,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
    *
    * @param limit  int
    * @param offset int
-   * @return List&ltClip&gt
+   * @return List&lt;Clip&gt;
    */
   @Query(value = "SELECT * FROM Clip ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
@@ -41,7 +41,7 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
    * @param userId long
    * @param limit  int
    * @param offset int
-   * @return List&ltClip&gt
+   * @return List&lt;Clip&gt;
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id = :userId ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)
@@ -50,10 +50,10 @@ public interface ClipRepository extends JpaRepository<Clip, Long> {
   /**
    * Gets all clips for users in a collection, limited by parameters.
    *
-   * @param users Collection&ltUser&gt
+   * @param users Collection&lt;User&gt;
    * @param limit int
    * @param offset int
-   * @return List&ltClip&gt
+   * @return List&lt;Clip&gt;
    */
   @Query(value = "SELECT * FROM Clip WHERE user_id IN :users ORDER BY date_time_posted DESC "
       + "OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY", nativeQuery = true)

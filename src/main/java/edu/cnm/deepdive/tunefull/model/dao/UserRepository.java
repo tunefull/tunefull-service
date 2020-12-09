@@ -24,14 +24,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
    * Gets a single user based on the oauth key.
    *
    * @param oauth String
-   * @return Optional&ltUser&gt
+   * @return Optional&lt;User&gt;
    */
   Optional<User> findFirstByOauth(String oauth);
 
   /**
    * Gets all users in the system, ordered by username alphabetically.
    *
-   * @return List&ltUser&gt
+   * @return List&lt;User&gt;
    */
   List<User> getAllByOrderByUsernameAsc();
 

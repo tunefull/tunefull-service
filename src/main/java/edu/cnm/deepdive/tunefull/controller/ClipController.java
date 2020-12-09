@@ -57,7 +57,7 @@ public class ClipController {
    * @param limit  int
    * @param offset int
    * @param source Source enum
-   * @return List&ltClip&gt
+   * @return List&lt;Clip&gt;
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Clip> getAll(Authentication auth,
@@ -65,21 +65,6 @@ public class ClipController {
       @RequestParam(required = false, defaultValue = "0") int offset,
       @RequestParam(required = false, defaultValue = "ALL") Source source) {
     return clipService.getAllFiltered((User) auth.getPrincipal(), limit, offset, source);
-  }
-
-  /**
-   * Gets all of the most recent clips, limited by parameters. This overload of the {@code getAll}
-   * method allows users who have not logged in to access clips used in Discovery mode.
-   *
-   * @param limit  int
-   * @param offset int
-   * @return List&ltClip&gt
-   */
-  @GetMapping(value = "/discovery", produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Clip> getAll(
-      @RequestParam(required = false, defaultValue = "10") int limit,
-      @RequestParam(required = false, defaultValue = "0") int offset) {
-    return clipService.getAllForDiscovery(limit, offset);
   }
 
   /**

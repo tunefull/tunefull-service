@@ -75,14 +75,14 @@ public class Clip {
    */
   @NonNull
   @Column(updatable = false, nullable = false)
-  private int beginTimestamp;
+  private long beginTimestamp;
 
   /**
    * Holds the timestamp for the end of the clip.
    */
   @NonNull
   @Column(updatable = false, nullable = false)
-  private int endTimestamp;
+  private long endTimestamp;
 
   /**
    * Holds the date and time that the clip was posted.
@@ -190,7 +190,7 @@ public class Clip {
    *
    * @return
    */
-  public int getBeginTimestamp() {
+  public long getBeginTimestamp() {
     return beginTimestamp;
   }
 
@@ -199,7 +199,7 @@ public class Clip {
    *
    * @param beginTimestamp int
    */
-  public void setBeginTimestamp(int beginTimestamp) {
+  public void setBeginTimestamp(long beginTimestamp) {
     this.beginTimestamp = beginTimestamp;
   }
 
@@ -208,7 +208,7 @@ public class Clip {
    *
    * @return
    */
-  public int getEndTimestamp() {
+  public long getEndTimestamp() {
     return endTimestamp;
   }
 
@@ -217,7 +217,7 @@ public class Clip {
    *
    * @param endTimestamp int
    */
-  public void setEndTimestamp(int endTimestamp) {
+  public void setEndTimestamp(long endTimestamp) {
     this.endTimestamp = endTimestamp;
   }
 

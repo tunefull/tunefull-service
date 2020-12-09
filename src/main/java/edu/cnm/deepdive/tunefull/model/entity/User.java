@@ -74,6 +74,7 @@ public class User implements Comparable<User> {
   /**
    * Holds the OAuth 2.0 key.
    */
+  @JsonIgnore
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String oauth;
@@ -229,7 +230,7 @@ public class User implements Comparable<User> {
    * @return
    */
   @NonNull
-  @JsonIgnore //for now
+  @JsonIgnore
   public List<Relationship> getFriendships() {
     return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
         .filter(Relationship::isFriendRelationship)

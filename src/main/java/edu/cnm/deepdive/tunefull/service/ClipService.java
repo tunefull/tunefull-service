@@ -49,7 +49,7 @@ public class ClipService {
    * Returns a single clip by id.
    *
    * @param id long type
-   * @return Optional&ltClip&gt
+   * @return Optional&lt;Clip&gt;
    */
   public Optional<Clip> get(long id) {
     return clipRepository.findById(id);
@@ -64,7 +64,7 @@ public class ClipService {
    * @param limit  int
    * @param offset int
    * @param source Source
-   * @return List&ltClips&gt
+   * @return List&lt;Clips&gt;
    */
   public List<Clip> getAllFiltered(User user, int limit, int offset, Source source) {
     switch (source) {
@@ -106,7 +106,7 @@ public class ClipService {
    *
    * @param limit  int
    * @param offset int
-   * @return List&ltClips&gt
+   * @return List&lt;Clips&gt;
    */
   public List<Clip> getAllForDiscovery(int limit, int offset) {
     return clipRepository.getAllByLimitAndOffset(limit, offset);

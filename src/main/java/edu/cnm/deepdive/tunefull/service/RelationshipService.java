@@ -38,7 +38,7 @@ public class RelationshipService {
    * Gets the Relationship by its id, if it exists.
    *
    * @param id long
-   * @return Optional&ltRelationship&gt
+   * @return Optional&lt;Relationship&gt;
    */
   public Optional<Relationship> get(long id) {
     return relationshipRepository.findById(id);
@@ -48,7 +48,7 @@ public class RelationshipService {
    * Gets the Relationship between two users, using the two users as parameters.
    *
    * @param user User
-   * @return List&ltRelationships&gt
+   * @return List&lt;Relationships&gt;
    */
   public List<Relationship> getFriendships(User user) {
     return relationshipRepository
@@ -59,7 +59,7 @@ public class RelationshipService {
    * Gets all the Relationships in which the user is following other users
    *
    * @param user User
-   * @return List&ltRelationships&gt
+   * @return List&lt;Relationships&gt;
    */
   public List<Relationship> getFollows(User user) {
     return relationshipRepository.getAllByRequesterAndFriendRelationshipFalse(user);
@@ -70,7 +70,7 @@ public class RelationshipService {
    * not responded yet.
    *
    * @param user User
-   * @return List&ltRelationships&gt
+   * @return List&lt;Relationships&gt;
    */
   public List<Relationship> getPending(User user) {
     return relationshipRepository.getAllByRequestedAndFriendAcceptedNull(user);

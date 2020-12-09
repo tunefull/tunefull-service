@@ -28,7 +28,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * Gets all friendships for a particular requester.
    *
    * @param requester User
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipTrue(User requester);
 
@@ -36,7 +36,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * Gets all friendships for a particular requested.
    *
    * @param requested User
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   List<Relationship> getAllByRequestedAndFriendRelationshipTrue(User requested);
 
@@ -46,7 +46,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    *
    * @param requester User
    * @param requested User
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   List<Relationship>
   getAllByRequesterAndFriendRelationshipTrueOrRequestedAndFriendRelationshipTrue(User requester,
@@ -56,7 +56,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * Gets all follows for a particular user.
    *
    * @param requester User
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   List<Relationship> getAllByRequesterAndFriendRelationshipFalse(User requester);
 
@@ -65,7 +65,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    * responded to yet).
    *
    * @param requested User
-   * @return List&ltRelationship&gt
+   * @return List&lt;Relationship&gt;
    */
   List<Relationship> getAllByRequestedAndFriendAcceptedNull(User requested);
 
@@ -74,7 +74,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
    *
    * @param requester User
    * @param requested User
-   * @return Optional&ltRelationship&gt
+   * @return Optional&lt;Relationship&gt;
    */
   Optional<Relationship> findFirstByRequesterAndRequested(User requester, User requested);
 

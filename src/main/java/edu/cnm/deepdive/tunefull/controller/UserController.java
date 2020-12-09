@@ -79,7 +79,7 @@ public class UserController {
    * @param auth   Authentication
    * @param limit  int
    * @param offset int
-   * @return List&ltUser&gt
+   * @return List&lt;User&gt;
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public List<User> getAll(Authentication auth,

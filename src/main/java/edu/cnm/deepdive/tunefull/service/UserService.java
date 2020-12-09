@@ -84,7 +84,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
    * Finds and returns a single User object by id.
    *
    * @param id long
-   * @return Optional&ltUser&gt
+   * @return Optional&lt;User&gt;
    */
   public Optional<User> get(long id) {
     return userRepository.findById(id);
@@ -93,7 +93,7 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
   /**
    * Returns a list of all users, ordered by username in alphabetical order.
    *
-   * @return List&ltUser&gt
+   * @return List&lt;User&gt;
    */
   public List<User> getAll() {
     return userRepository.getAllByOrderByUsernameAsc();
