@@ -4,6 +4,7 @@ import edu.cnm.deepdive.tunefull.model.dao.ClipRepository;
 import edu.cnm.deepdive.tunefull.model.dao.RelationshipRepository;
 import edu.cnm.deepdive.tunefull.model.dao.UserRepository;
 import edu.cnm.deepdive.tunefull.model.entity.Clip;
+import edu.cnm.deepdive.tunefull.model.entity.Relationship;
 import edu.cnm.deepdive.tunefull.model.entity.User;
 import java.util.List;
 import java.util.Optional;
@@ -74,24 +75,35 @@ public class ClipService {
         return clipRepository.getAllByUserAndLimitAndOffset(user.getId(), limit, offset);
       case FRIENDS:
         return clipRepository.getAllByUserIsInOrderByDateTimePostedDesc(
-            user.getFriendships()
-                .stream()
-                .map((relationship) -> relationship.other(user))
+            Stream.concat(
+                user.getRelationshipsInitiated().stream(),
+                    user.getRelationshipsReceived().stream()
+            )
+                .filter((relationship) -> relationship.getFriendAccepted().equals(Boolean.TRUE))
+                .map((relationship) -> (user.getId().equals(relationship.getRequester().getId())
+                    ? relationship.getRequested()
+                    : relationship.getRequester())
+            )
                 .collect(Collectors.toList()),
             limit,
             offset);
       case FOLLOWING:
         return clipRepository.getAllByUserIsInOrderByDateTimePostedDesc(
-            user.getFollowing()
-                .stream()
-                .map((relationship) -> relationship.other(user))
+                user.getRelationshipsInitiated().stream()
+                    .filter((relationship) -> !relationship.getFriendAccepted().equals(Boolean.TRUE))
+                    .map(Relationship::getRequested)
                 .collect(Collectors.toList()),
             limit,
             offset);
       case RELATIONSHIPS:
         return clipRepository.getAllByUserIsInOrderByDateTimePostedDesc(
-            Stream.concat(user.getFriendships().stream(), user.getFollowing().stream())
-                .map((relationship) -> relationship.other(user))
+            Stream.concat(
+                user.getRelationshipsInitiated().stream()
+                    .map(Relationship::getRequested),
+                user.getRelationshipsReceived().stream()
+                    .filter((relationship) -> relationship.getFriendAccepted().equals(Boolean.TRUE))
+                    .map(Relationship::getRequester)
+            )
                 .collect(Collectors.toList()),
             limit,
             offset);

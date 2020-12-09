@@ -223,39 +223,6 @@ public class User implements Comparable<User> {
     return clips;
   }
 
-  /**
-   * Returns the friendships in which the user is either the initiator or the recipient of the
-   * request.
-   *
-   * @return
-   */
-  @NonNull
-  @JsonIgnore
-  public List<Relationship> getFriendships() {
-    return Stream.concat(relationshipsInitiated.stream(), relationshipsReceived.stream())
-        .filter(Relationship::isFriendRelationship)
-        .filter(Relationship::getFriendAccepted)
-        .sorted(
-            Comparator.comparing((Relationship relationship)
-                -> relationship.other(this).username))
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Returns the relationships in which the user is following another user
-   *
-   * @return
-   */
-  @NonNull
-  @JsonIgnore //for now
-  public List<Relationship> getFollowing() {
-    return relationshipsInitiated.stream()
-        .filter(Predicate.not(Relationship::isFriendRelationship)
-            .or((relationship) -> relationship.getFriendAccepted() == null)
-            .or((relationship) -> relationship.getFriendAccepted().equals(false)))
-        .sorted(Comparator.comparing((relationship) -> relationship.getRequested().username))
-        .collect(Collectors.toList());
-  }
 
   @Override
   public int compareTo(User other) {
